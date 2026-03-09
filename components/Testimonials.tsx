@@ -83,7 +83,7 @@ export const Testimonials: React.FC = () => {
   const secondRow = reviews.slice(reviews.length / 2);
 
   return (
-    <section className="py-32 relative overflow-hidden border-t border-white/5">
+    <section className="py-32 relative overflow-hidden">
       <SectionWrapper>
         <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
             <h2 className="text-sm font-mono text-accent uppercase tracking-widest mb-4">Social Proof</h2>

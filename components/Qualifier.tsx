@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { SectionWrapper } from './SectionWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, Loader2 } from 'lucide-react';
+import { ScannerAnimation } from './ScannerAnimation';
 
 interface Question {
   id: number;
@@ -30,17 +31,49 @@ const questions: Question[] = [
 export const Qualifier: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isQualified, setIsQualified] = useState<boolean | null>(null);
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleOptionClick = (_option: string) => {
-    if (currentStep < questions.length - 1) {
+  const handleOptionClick = (option: string) => {
+    const currentQuestion = questions[currentStep].text;
+    setAnswers(prev => ({ ...prev, [currentQuestion]: option }));
+
+    if (currentStep < questions.length) {
       setCurrentStep(prev => prev + 1);
-    } else {
+    }
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const payload = {
+      ...formData,
+      ...answers,
+      source: 'Website Qualifier Protocol'
+    };
+
+    try {
+      await fetch('https://services.leadconnectorhq.com/hooks/ugg4v4G1WJMtqGcWFUp5/webhook-trigger/fc46ded9-2d68-4d5f-a9f4-495d03b50057', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
       setIsQualified(true);
+    } catch (error) {
+      console.error('Error submitting to webhook:', error);
+      // Still show success to user even if webhook fails, or handle error
+      setIsQualified(true);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div id="qualify" className="py-32 border-y border-white/5 relative overflow-hidden">
+    <div id="qualify" className="py-32 relative overflow-hidden">
       <SectionWrapper>
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
@@ -48,20 +81,20 @@ export const Qualifier: React.FC = () => {
             <h3 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
               Are you ready to scale?
             </h3>
-            <p className="text-text-secondary font-mono max-w-lg mx-auto">
+            
+            <p className="text-text-secondary font-mono max-w-lg mx-auto mt-8">
               We operate on a partnership model. We do not accept every client. Use the calculator below to check availability for your territory.
             </p>
           </div>
 
-          {/* Changed bg-background/border to glassmorphism */}
-          <div className="bg-black/40 backdrop-blur-md border border-white/10 p-8 md:p-12 min-h-[400px] flex flex-col justify-center relative overflow-hidden shadow-2xl">
+          <div className="bg-black/40 backdrop-blur-md border border-white/10 p-8 md:p-12 min-h-[400px] flex flex-col justify-center relative overflow-hidden shadow-2xl mb-16">
             {/* Progress Bar */}
             {!isQualified && (
-                <div className="absolute top-0 left-0 h-1 bg-accent transition-all duration-500" style={{ width: `${((currentStep + 1) / questions.length) * 100}%` }} />
+                <div className="absolute top-0 left-0 h-1 bg-accent transition-all duration-500" style={{ width: `${((currentStep) / (questions.length + 1)) * 100}%` }} />
             )}
 
             <AnimatePresence mode="wait">
-              {!isQualified ? (
+              {!isQualified && currentStep < questions.length ? (
                 <motion.div
                   key={currentStep}
                   initial={{ opacity: 0, x: 20 }}
@@ -87,6 +120,64 @@ export const Qualifier: React.FC = () => {
                     ))}
                   </div>
                 </motion.div>
+              ) : !isQualified && currentStep === questions.length ? (
+                <motion.div
+                  key="form"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-full max-w-md mx-auto"
+                >
+                  <div className="text-center mb-8">
+                    <h4 className="text-2xl font-sans font-bold text-white mb-2">
+                      Protocol Generated
+                    </h4>
+                    <p className="text-sm font-mono text-text-secondary">
+                      Where should we send your custom growth protocol?
+                    </p>
+                  </div>
+                  
+                  <form onSubmit={handleFormSubmit} className="space-y-4">
+                    <div>
+                      <input 
+                        type="text" 
+                        required
+                        placeholder="Full Name" 
+                        className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors"
+                        value={formData.name}
+                        onChange={e => setFormData({...formData, name: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <input 
+                        type="email" 
+                        required
+                        placeholder="Email Address" 
+                        className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors"
+                        value={formData.email}
+                        onChange={e => setFormData({...formData, email: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <input 
+                        type="tel" 
+                        required
+                        placeholder="Phone Number" 
+                        className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors"
+                        value={formData.phone}
+                        onChange={e => setFormData({...formData, phone: e.target.value})}
+                      />
+                    </div>
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full bg-accent text-black font-mono font-bold uppercase tracking-wider p-4 hover:bg-white transition-colors flex justify-center items-center gap-2 disabled:opacity-70"
+                    >
+                      {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Get My Protocol'}
+                    </button>
+                  </form>
+                </motion.div>
               ) : (
                 <motion.div
                   key="success"
@@ -99,15 +190,20 @@ export const Qualifier: React.FC = () => {
                   </div>
                   <h4 className="text-3xl font-sans font-bold text-white mb-4">You are eligible for a Growth Protocol.</h4>
                   <p className="text-text-secondary font-mono mb-8 max-w-md">
-                    Based on your answers, your business structure fits our scaling parameters. We have 2 slots available for Q4.
+                    Based on your answers, your business structure fits our scaling parameters. We have received your information and will be in touch shortly.
                   </p>
-                  <button className="border border-accent text-accent font-mono font-bold uppercase py-4 px-12 hover:bg-accent hover:text-black transition-colors">
-                    Book Priority Consultation
+                  <button 
+                    onClick={() => window.location.reload()}
+                    className="border border-accent text-accent font-mono font-bold uppercase py-4 px-12 hover:bg-accent hover:text-black transition-colors"
+                  >
+                    Return Home
                   </button>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
+
+          <ScannerAnimation />
         </div>
       </SectionWrapper>
     </div>

@@ -3,7 +3,7 @@ import { SectionWrapper } from './SectionWrapper';
 
 export const Metrics: React.FC = () => {
   return (
-    <div id="metrics" className="py-12 md:py-16 border-y border-white/5 relative">
+    <div id="metrics" className="py-12 md:py-16 relative">
       <SectionWrapper>
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
           

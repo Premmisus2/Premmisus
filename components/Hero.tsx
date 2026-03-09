@@ -1,45 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from './Button';
-import { Marquee } from './Marquee';
-
-const partners = [
-  { name: 'Meta', logo: 'https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg' },
-  { name: 'Google Ads', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Ads_logo.svg' },
-  { name: 'HubSpot', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/15/HubSpot_Logo.svg' },
-  { name: 'Zapier', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Zapier_logo.svg' },
-  { name: 'Slack', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Slack_icon_2019.svg' },
-  { name: 'Salesforce', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Salesforce.com_logo.svg' },
-  { name: 'Pipedrive', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/63/Pipedrive_logo.svg' },
-  { name: 'OpenAI', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg' },
-  { name: 'GoHighLevel', logo: 'https://logo.clearbit.com/gohighlevel.com' },
-  { name: 'LinkedIn', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg' },
-  { name: 'TikTok', logo: 'https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg' },
-];
-
-const LogoTicker = () => (
-  <div className="w-full border-y border-white/5 bg-black/20 backdrop-blur-sm py-6 mt-20 relative z-10">
-    <div className="text-center mb-4">
-       <span className="text-xs font-mono text-text-secondary uppercase tracking-[0.3em]">
-          Powered by Trusted Infrastructure
-       </span>
-    </div>
-    
-    <div className="flex w-full overflow-hidden">
-       <Marquee className="[--duration:40s] [--gap:3rem] md:[--gap:5rem]" pauseOnHover>
-          {partners.map((partner, idx) => (
-             <div key={idx} className="flex items-center justify-center px-4">
-                <img 
-                  src={partner.logo} 
-                  alt={partner.name} 
-                  className="h-6 md:h-8 w-auto object-contain opacity-70 transition-all duration-300 hover:opacity-100"
-                />
-             </div>
-          ))}
-       </Marquee>
-    </div>
-  </div>
-);
+import { AnimatedLogos } from './AnimatedLogos';
 
 export const Hero: React.FC = () => {
   const pairs = [
@@ -125,7 +87,14 @@ export const Hero: React.FC = () => {
          animate={{ opacity: 1 }}
          transition={{ duration: 1, delay: 0.5 }}
       >
-        <LogoTicker />
+        <div className="w-full py-6 mt-20 relative z-10">
+          <div className="text-center mb-4">
+             <span className="text-xs font-mono text-text-secondary uppercase tracking-[0.3em]">
+                Powered by Trusted Infrastructure
+             </span>
+          </div>
+          <AnimatedLogos />
+        </div>
       </motion.div>
     </section>
   );

@@ -1,0 +1,123 @@
+.al-resizable {
+	overflow: hidden;
+	container-type: size;
+  scale: var(--scale);
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.al-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  pointer-events: none;
+	mask: linear-gradient(90deg, transparent, black 15% 85%, transparent);
+	display: grid;
+	min-height: 100px;
+	min-width: 300px;
+}
+
+.al-container ul {
+	display: flex;
+	gap: 0;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	height: 100%;
+	width: fit-content;
+	align-items: center;
+	pointer-events: none;
+}
+
+.al-container li {
+	height: 80%;
+	aspect-ratio: 16 / 9;
+	font-size: clamp(2rem, 4vw + 1rem, 8rem);
+	display: grid;
+	place-items: center;
+}
+
+.al-container li svg {
+	fill: white;
+	height: 65%;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.al-container li:hover svg {
+  opacity: 1;
+}
+
+[data-play-state=running] :is(.al-container ul, .al-container li) {
+	animation-play-state: running !important;
+}
+[data-play-state=paused] :is(.al-container ul, .al-container li) {
+	animation-play-state: paused !important;
+}
+
+/* Blur component */
+.al-blur {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 25%;
+	z-index: 2;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.al-blur--right {
+	right: 0;
+}
+
+.al-blur--left {
+	left: 0;
+	rotate: 180deg;
+}
+
+.al-blur div {
+	position: absolute;
+	inset: 0;
+	z-index: var(--index);
+  mask: linear-gradient(
+  	90deg,
+  	transparent calc(var(--index) * calc((100 / var(--blurs)) * 1%)),
+  	black calc((var(--index) + 1) * calc((100 / var(--blurs)) * 1%)),
+  	black calc((var(--index) + 2) * calc((100 / var(--blurs)) * 1%)),
+  	transparent calc((var(--index) + 3) * calc((100 / var(--blurs)) * 1%))
+  );
+	backdrop-filter: blur(calc((var(--index, 0) * var(--blur, 0)) * 2px));
+}
+
+[data-blurring=true] .al-blur {
+	opacity: 1;
+}
+
+/* The animation stuff */
+@media(prefers-reduced-motion: no-preference) {
+	[data-translate=items][data-direction=horizontal] .al-container {
+		padding-inline: 0;
+	}
+	
+	[data-translate=items] .al-container li {
+		--duration: calc(var(--speed) * 1s);
+		--delay: calc((var(--duration) / var(--count)) * (var(--index, 0) * -1));
+		animation: slide var(--duration) var(--delay) infinite linear paused;
+		translate: var(--origin-x) var(--origin-y);
+	}
+	[data-translate=items][data-direction=horizontal] .al-container li {
+		--origin-x: calc(((var(--count) - var(--index)) + var(--inset, 0)) * 100%);
+		--origin-y: 0;
+		--destination-x: calc(calc((var(--index) + 1 + var(--outset, 0)) * -100%));
+		--destination-y: 0;
+	}
+	
+	@keyframes slide {
+		100% {
+			translate: var(--destination-x) var(--destination-y);
+		}
+	}
+}

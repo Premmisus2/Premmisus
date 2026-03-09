@@ -5,7 +5,7 @@ import { Logo } from './Logo';
 export const Footer: React.FC = () => {
   return (
     // Removed bg-background, made border more subtle
-    <footer className="border-t border-white/5 pt-32 pb-12 relative overflow-hidden">
+    <footer className="pt-32 pb-12 relative overflow-hidden">
         {/* Background Gradients */}
         <div className="absolute bottom-0 left-0 w-full h-[500px] bg-gradient-to-t from-accent/5 to-transparent pointer-events-none" />
 
