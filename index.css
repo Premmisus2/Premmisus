@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-dark: #05070A;
+  --accent-cyan: #00F0FF;
+  --accent-blue: #0072FF;
+  --card-bg: #0D1117;
+}
+
+.hero-glow {
+  background: radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.15) 0%, transparent 50%), var(--bg-dark);
+}
+
+.neon-button {
+  background-color: var(--accent-cyan);
+  color: var(--bg-dark);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  transition: all 0.3s ease;
+  border-radius: 12px;
+}
+
+.neon-button:hover {
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.7);
+  transform: translateY(-2px);
+}
+
+body {
+  background-color: hsl(0 0% 2%);
+  color: #FFFFFF;
+  overflow-x: hidden;
+}
+
+.grid-overlay::before {
+  --line: hsl(0 0% 95% / 0.15);
+  --size: 60px;
+  content: "";
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  background:
+    linear-gradient(90deg, var(--line) 1px, transparent 1px var(--size)) 0 -5vmin / var(--size) var(--size),
+    linear-gradient(var(--line) 1px, transparent 1px var(--size)) 0 -5vmin / var(--size) var(--size);
+  mask: linear-gradient(-15deg, transparent 60%, white);
+  top: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
