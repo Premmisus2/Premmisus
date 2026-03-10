@@ -18,7 +18,7 @@ export const Footer: React.FC = () => {
             <p className="text-text-secondary font-mono text-lg mb-8 max-w-md">
               We only work with 5 new partners per quarter to ensure maximum attention and results.
             </p>
-            <Button withArrow className="bg-accent text-black text-lg py-6 px-10 border-none hover:bg-white hover:text-black">
+            <Button href="#qualify" withArrow className="bg-accent text-black text-lg py-6 px-10 border-none hover:bg-white hover:text-black">
               Apply for Partnership
             </Button>
           </div>
@@ -27,17 +27,17 @@ export const Footer: React.FC = () => {
             <div>
               <h4 className="font-mono text-sm text-white font-bold uppercase mb-6">Socials</h4>
               <ul className="space-y-4 font-mono text-sm text-text-secondary">
-                <li><a href="#" className="hover:text-accent transition-colors">Instagram</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">LinkedIn</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">Twitter</a></li>
+                <li><a href="https://instagram.com/premmisus" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Instagram</a></li>
+                <li><a href="https://linkedin.com/company/premmisus" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">LinkedIn</a></li>
+                <li><a href="https://twitter.com/premmisus" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Twitter</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-mono text-sm text-white font-bold uppercase mb-6">Company</h4>
               <ul className="space-y-4 font-mono text-sm text-text-secondary">
-                <li><a href="#" className="hover:text-accent transition-colors">About</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">Careers</a></li>
-                <li><a href="#" className="hover:text-accent transition-colors">Contact</a></li>
+                <li><a href="#system" className="hover:text-accent transition-colors">About</a></li>
+                <li><a href="mailto:careers@premmisus.ca" className="hover:text-accent transition-colors">Careers</a></li>
+                <li><a href="#qualify" className="hover:text-accent transition-colors">Contact</a></li>
               </ul>
             </div>
           </div>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { SectionWrapper } from './SectionWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Loader2, ChevronDown } from 'lucide-react';
-import { ScannerAnimation } from './ScannerAnimation';
+import { Check, Loader2 } from 'lucide-react';
 
 interface Question {
   id: number;
@@ -28,28 +27,12 @@ const questions: Question[] = [
   }
 ];
 
-const countryCodes = [
-  { code: '+1', name: 'US/CA' },
-  { code: '+44', name: 'UK' },
-  { code: '+61', name: 'AU' },
-  { code: '+49', name: 'DE' },
-  { code: '+33', name: 'FR' },
-  { code: '+91', name: 'IN' },
-  { code: '+81', name: 'JP' },
-  { code: '+86', name: 'CN' },
-  { code: '+55', name: 'BR' },
-  { code: '+52', name: 'MX' },
-  { code: '+971', name: 'UAE' },
-  { code: '+27', name: 'ZA' },
-];
-
 export const Qualifier: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isQualified, setIsQualified] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', countryCode: '+1' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [phoneError, setPhoneError] = useState('');
 
   const handleOptionClick = (option: string) => {
     const currentQuestion = questions[currentStep].text;
@@ -60,37 +43,18 @@ export const Qualifier: React.FC = () => {
     }
   };
 
-  const validatePhone = (num: string) => {
-    // Basic validation: length check for most countries (7-15 digits)
-    const digits = num.replace(/\D/g, '');
-    if (digits.length < 7 || digits.length > 15) {
-      return false;
-    }
-    return true;
-  };
-
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validatePhone(formData.phone)) {
-      setPhoneError('Please enter a valid phone number');
-      return;
-    }
-    setPhoneError('');
     setIsSubmitting(true);
 
     const payload = {
-      name: formData.name,
-      email: formData.email,
-      phone: `${formData.countryCode}${formData.phone.replace(/\D/g, '')}`,
-      industry: answers["Which industry describes you best?"],
-      revenue: answers["What is your current monthly revenue?"],
-      bottleneck: answers["What is your primary bottleneck?"],
+      ...formData,
+      ...answers,
       source: 'Website Qualifier Protocol'
     };
 
     try {
-      await fetch('https://services.leadconnectorhq.com/hooks/ugg4v4G1WJMtqGcWFUp5/webhook-trigger/b74f8aec-ff76-4669-a25f-7146fa35bd50', {
+      await fetch('https://services.leadconnectorhq.com/hooks/ugg4v4G1WJMtqGcWFUp5/webhook-trigger/fc46ded9-2d68-4d5f-a9f4-495d03b50057', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,6 +64,7 @@ export const Qualifier: React.FC = () => {
       setIsQualified(true);
     } catch (error) {
       console.error('Error submitting to webhook:', error);
+      // Still show success to user even if webhook fails, or handle error
       setIsQualified(true);
     } finally {
       setIsSubmitting(false);
@@ -193,36 +158,16 @@ export const Qualifier: React.FC = () => {
                         onChange={e => setFormData({...formData, email: e.target.value})}
                       />
                     </div>
-                    <div className="flex gap-2">
-                      <div className="relative group min-w-[100px]">
-                        <select
-                          className="w-full bg-white/5 border border-white/10 p-4 pt-1 font-mono text-sm text-white appearance-none focus:outline-none focus:border-accent transition-colors h-full"
-                          value={formData.countryCode}
-                          onChange={e => setFormData({...formData, countryCode: e.target.value})}
-                        >
-                          {countryCodes.map(c => (
-                            <option key={c.code} value={c.code} className="bg-surface text-white">
-                              {c.code} ({c.name})
-                            </option>
-                          ))}
-                        </select>
-                        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30 pointer-events-none group-hover:text-accent transition-colors" />
-                      </div>
+                    <div>
                       <input 
                         type="tel" 
                         required
                         placeholder="Phone Number" 
-                        className={`flex-1 bg-white/5 border ${phoneError ? 'border-red-500' : 'border-white/10'} p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors`}
+                        className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors"
                         value={formData.phone}
-                        onChange={e => {
-                          setFormData({...formData, phone: e.target.value});
-                          if (phoneError) setPhoneError('');
-                        }}
+                        onChange={e => setFormData({...formData, phone: e.target.value})}
                       />
                     </div>
-                    {phoneError && (
-                      <p className="text-red-500 text-xs font-mono">{phoneError}</p>
-                    )}
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
@@ -257,7 +202,6 @@ export const Qualifier: React.FC = () => {
             </AnimatePresence>
           </div>
 
-          <ScannerAnimation />
         </div>
       </SectionWrapper>
     </div>

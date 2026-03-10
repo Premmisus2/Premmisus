@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
           className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-accent/30 bg-accent/5 backdrop-blur-sm mb-8"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-accent animate-[pulse_1.5s_infinite]" />
-          <span className="text-xs font-mono text-accent tracking-widest uppercase">Ontario Industrial & Trades Only</span>
+          <span className="text-xs font-mono text-accent tracking-widest uppercase">Canadian Industrial & Trades Only</span>
         </motion.div>
 
         <div className="flex flex-col items-center text-center mb-8 w-full">
@@ -77,8 +77,8 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4"
         >
-          <Button withArrow>Deploy the System</Button>
-          <Button variant="outline">View The Data</Button>
+          <Button href="#qualify" withArrow>Deploy the System</Button>
+          <Button href="#metrics" variant="outline">View The Data</Button>
         </motion.div>
       </div>
 

@@ -49,6 +49,12 @@ const cases: CaseStudy[] = [
 export const CaseStudies: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const scroll = (direction: 'left' | 'right') => {
+    if (!containerRef.current) return;
+    const scrollAmount = 480;
+    containerRef.current.scrollBy({ left: direction === 'right' ? scrollAmount : -scrollAmount, behavior: 'smooth' });
+  };
+
   return (
     <section id="work" className="py-16 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -59,8 +65,8 @@ export const CaseStudies: React.FC = () => {
           </h3>
         </div>
         <div className="flex gap-2">
-            <button className="w-10 h-10 border border-white/20 flex items-center justify-center text-white hover:border-accent hover:text-accent transition">←</button>
-            <button className="w-10 h-10 border border-white/20 flex items-center justify-center text-white hover:border-accent hover:text-accent transition">→</button>
+            <button onClick={() => scroll('left')} className="w-10 h-10 border border-white/20 flex items-center justify-center text-white hover:border-accent hover:text-accent transition cursor-pointer">←</button>
+            <button onClick={() => scroll('right')} className="w-10 h-10 border border-white/20 flex items-center justify-center text-white hover:border-accent hover:text-accent transition cursor-pointer">→</button>
         </div>
       </div>
 
@@ -70,8 +76,9 @@ export const CaseStudies: React.FC = () => {
         className="flex overflow-x-auto gap-6 px-6 pb-12 snap-x snap-mandatory no-scrollbar md:px-[calc((100vw-80rem)/2)]"
       >
         {cases.map((study) => (
-          <motion.div 
+          <motion.a
             key={study.id}
+            href="#qualify"
             className="flex-shrink-0 w-[85vw] md:w-[450px] snap-center group cursor-pointer"
             whileHover={{ y: -10 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -115,7 +122,7 @@ export const CaseStudies: React.FC = () => {
                 {study.description}
               </p>
             </div>
-          </motion.div>
+          </motion.a>
         ))}
       </div>
     </section>

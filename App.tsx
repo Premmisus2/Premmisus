@@ -15,19 +15,19 @@ function App() {
        <Cursor />
        <div className="relative z-10">
         <Navbar />
-        
+
         <Hero />
-        
+
         <Methodology />
-        
+
         <Comparison />
-        
+
         <Metrics />
-        
+
         <CaseStudies />
 
         <Testimonials />
-        
+
         <Qualifier />
 
         <Footer />
