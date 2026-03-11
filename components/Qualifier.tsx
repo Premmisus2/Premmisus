@@ -13,7 +13,7 @@ const questions: Question[] = [
   {
     id: 1,
     text: "Which industry describes you best?",
-    options: ["Construction / General Contracting", "HVAC / Plumbing / Electrical", "Manufacturing / Logistics", "Other"]
+    options: ["Plumbing & Drain", "Roofing & Exterior", "Property Care / Cleaning", "Handyman & Renovation", "Tiling & Flooring", "Other"]
   },
   {
     id: 2,
@@ -30,11 +30,16 @@ const questions: Question[] = [
 export const Qualifier: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isQualified, setIsQualified] = useState<boolean | null>(null);
+  const [isDisqualified, setIsDisqualified] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', businessName: '', description: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleOptionClick = (option: string) => {
+    if (currentStep === 0 && option === 'Other') {
+      setIsDisqualified(true);
+      return;
+    }
     const currentQuestion = questions[currentStep].text;
     setAnswers(prev => ({ ...prev, [currentQuestion]: option }));
 
@@ -47,24 +52,62 @@ export const Qualifier: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const payload = {
-      ...formData,
-      ...answers,
-      source: 'Website Qualifier Protocol'
+    const GHL_KEY = 'pit-5e9f78ef-6844-437c-8ab1-e3bea48ba900';
+    const LOCATION_ID = 'ugg4v4G1WJMtqGcWFUp5';
+    const PIPELINE_ID = 'M3vmZOkpNgw7SzdZr4rY';
+    const STAGE_ID = '9050e688-40df-4978-96cf-de41935cd791';
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GHL_KEY}`,
+      'Version': '2021-07-28',
     };
 
     try {
-      await fetch('https://services.leadconnectorhq.com/hooks/ugg4v4G1WJMtqGcWFUp5/webhook-trigger/fc46ded9-2d68-4d5f-a9f4-495d03b50057', {
+      // 1. Create contact
+      const nameParts = formData.name.trim().split(' ');
+      const contactRes = await fetch('https://services.leadconnectorhq.com/contacts/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
+        headers,
+        body: JSON.stringify({
+          locationId: LOCATION_ID,
+          firstName: nameParts[0],
+          lastName: nameParts.slice(1).join(' ') || '',
+          email: formData.email,
+          phone: formData.phone,
+          companyName: formData.businessName,
+          source: 'Website Qualifier',
+          tags: ['website-lead'],
+          customFields: [
+            { id: 'vShDN6Xro4OB7rNCQRU5', value: answers['Which industry describes you best?'] ?? '' },
+            { id: 'bRhvYPPoorVc4PSj2QrP', value: answers['What is your current monthly revenue?'] ?? '' },
+            { id: 'BS8ZhC5sYkNoku3PH59w', value: formData.businessName },
+            { id: 'Kp9u8kpsPLH1ps31VR7d', value: 'Website Qualifier' },
+          ],
+        }),
       });
+      const contactData = await contactRes.json();
+      const contactId = contactData?.contact?.id;
+
+      // 2. Add to pipeline
+      if (contactId) {
+        await fetch('https://services.leadconnectorhq.com/opportunities/', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            locationId: LOCATION_ID,
+            pipelineId: PIPELINE_ID,
+            pipelineStageId: STAGE_ID,
+            contactId,
+            name: `${formData.businessName} — ${answers['Which industry describes you best?'] ?? 'Website Lead'}`,
+            status: 'open',
+            monetaryValue: 0,
+          }),
+        });
+      }
+
       setIsQualified(true);
     } catch (error) {
-      console.error('Error submitting to webhook:', error);
-      // Still show success to user even if webhook fails, or handle error
+      console.error('GHL submission error:', error);
       setIsQualified(true);
     } finally {
       setIsSubmitting(false);
@@ -93,7 +136,25 @@ export const Qualifier: React.FC = () => {
             )}
 
             <AnimatePresence mode="wait">
-              {!isQualified && currentStep < questions.length ? (
+              {isDisqualified ? (
+                <motion.div
+                  key="disqualified"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center flex flex-col items-center"
+                >
+                  <h4 className="text-3xl font-sans font-bold text-white mb-4">Not quite a fit — yet.</h4>
+                  <p className="text-text-secondary font-mono mb-8 max-w-md">
+                    Our system is built specifically for Canadian trades and home service businesses. If that changes, we'd love to work with you.
+                  </p>
+                  <a
+                    href="/contact"
+                    className="border border-white/20 text-text-secondary font-mono text-sm uppercase tracking-widest py-3 px-8 hover:border-accent hover:text-accent transition-colors"
+                  >
+                    Get in Touch Anyway
+                  </a>
+                </motion.div>
+              ) : !isQualified && currentStep < questions.length ? (
                 <motion.div
                   key={currentStep}
                   initial={{ opacity: 0, x: 20 }}
@@ -159,19 +220,43 @@ export const Qualifier: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <input 
-                        type="tel" 
+                      <input
+                        type="tel"
                         required
-                        placeholder="Phone Number" 
+                        placeholder="Phone Number"
                         className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors"
                         value={formData.phone}
                         onChange={e => setFormData({...formData, phone: e.target.value})}
                       />
                     </div>
-                    <button 
-                      type="submit" 
+                    <div>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Business Name"
+                        className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors"
+                        value={formData.businessName}
+                        onChange={e => setFormData({...formData, businessName: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <textarea
+                        required
+                        placeholder="Brief description of your business and what you're looking to achieve"
+                        rows={3}
+                        className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors resize-none"
+                        value={formData.description}
+                        onChange={e => setFormData({...formData, description: e.target.value})}
+                      />
+                    </div>
+                    <p className="text-[11px] font-mono text-text-secondary leading-relaxed text-center px-2">
+                      By submitting, you consent to receive commercial communications from Premmisus via email and SMS. You may unsubscribe at any time.{' '}
+                      <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a>.
+                    </p>
+                    <button
+                      type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-accent text-black font-mono font-bold uppercase tracking-wider p-4 hover:bg-white transition-colors flex justify-center items-center gap-2 disabled:opacity-70"
+                      className="w-full bg-accent text-black font-mono font-bold uppercase tracking-wider p-4 hover:bg-white transition-colors flex justify-center items-center gap-2 disabled:opacity-70 neon-button"
                     >
                       {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Get My Protocol'}
                     </button>

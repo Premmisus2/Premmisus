@@ -4,71 +4,57 @@ import { SectionWrapper } from './SectionWrapper';
 
 const reviews = [
   {
-    name: "Alex Rivera",
-    username: "@apex_construct",
-    body: "Nexus Growth didn't just run ads; they restructured our entire acquisition funnel. We went from $20k to $85k/mo in 60 days.",
-    img: "https://avatar.vercel.sh/alex",
+    name: "Umesh",
+    username: "Trydentt Building Services",
+    body: "I've gotten to know the founder of Premmisus on a personal level, and I can say for a fact that these guys offer premium marketing services. I would recommend them to my closest and most valued colleagues — a true testament to excellence.",
+    img: "https://avatar.vercel.sh/umesh",
   },
   {
-    name: "Sarah Chen",
-    username: "@weld_master",
-    body: "The creative velocity is insane. They test 20+ angles a week. Our ROAS stabilized at 4.5x even while scaling spend.",
-    img: "https://avatar.vercel.sh/sarah",
+    name: "Randy",
+    username: "Easy Touch Soccer Academy",
+    body: "Been working with Premmisus for four years now. We've just made plans to expand into other avenues of online marketing and revenue generation. Would not trade this partnership up. Absolutely premium marketing and attention to detail.",
+    img: "https://avatar.vercel.sh/randy",
   },
   {
-    name: "Marcus Thorne",
-    username: "@hvac_pro",
-    body: "Finally an agency that understands unit economics. No vanity metrics, just pure profit contribution.",
-    img: "https://avatar.vercel.sh/marcus",
+    name: "Charles",
+    username: "Standard Property Care",
+    body: "Have known Elliott and the team since 2023. I was mentored by him, and then we were blessed to get into business together. I expected nothing less than a state-of-the-art operation — and some of the plans for the future are jaw-dropping. Really don't need to say much more.",
+    img: "https://avatar.vercel.sh/charles",
   },
   {
-    name: "Elena Rodriguez",
-    username: "@steel_fab",
-    body: "The 'Method' works. Our CAC dropped by 40% within the first month of their creative sprint.",
-    img: "https://avatar.vercel.sh/elena",
+    name: "D'Andre",
+    username: "Principle Property Care",
+    body: "These guys helped me out when I was barely established with no team. They acted as my team, helped me grow, and built an entire backend for me. Real-life collaboration, digital leverage — these are the building blocks for the future. Really appreciate the team at Premmisus.",
+    img: "https://avatar.vercel.sh/dandre",
   },
   {
-    name: "David Kim",
-    username: "@heavy_machinery",
-    body: "Professional, data-driven, and extremely aggressive with scaling winners. Exactly what we needed.",
-    img: "https://avatar.vercel.sh/david",
-  },
-  {
-    name: "Jessica Vance",
-    username: "@logistics_plus",
-    body: "We were stuck at a plateau for 6 months. Nexus broke through it in 3 weeks. The team is elite.",
-    img: "https://avatar.vercel.sh/jessica",
+    name: "Senay",
+    username: "Detailing Business & Academy",
+    body: "The founder helped my cousin and me start our detailing business and academy to help young people in our community on their service-building journey. We built a real relationship. He helped us launch, scale, and now I'm teaching others to do the same. Absolutely brilliant work. Hats off.",
+    img: "https://avatar.vercel.sh/senay",
   },
 ];
 
 interface ReviewCardProps {
-  img: string;
   name: string;
-  username: string;
   body: string;
 }
 
-const ReviewCard: React.FC<ReviewCardProps> = ({
-  img,
-  name,
-  username,
-  body,
-}) => {
+const ReviewCard: React.FC<ReviewCardProps> = ({ name, body }) => {
   return (
     // Removed bg-surface, added transparent glass style
     <figure
-      className="relative w-96 cursor-pointer overflow-hidden rounded-sm border border-white/10 bg-black/20 backdrop-blur-sm p-8 transition-all duration-300 hover:border-accent/30 hover:bg-white/5"
+      className="relative w-80 cursor-pointer overflow-hidden rounded-sm border border-white/10 bg-black/20 backdrop-blur-sm p-5 transition-all duration-300 hover:border-accent/30 hover:bg-white/5"
     >
       <div className="flex flex-row items-center gap-3">
-        <img className="rounded-full" width="40" height="40" alt="" src={img} />
-        <div className="flex flex-col">
-          <figcaption className="text-base font-medium font-sans text-white">
-            {name}
-          </figcaption>
-          <p className="text-sm font-mono text-text-secondary">{username}</p>
+        <div className="w-10 h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
+          <span className="text-sm font-mono text-zinc-400">{name[0]}</span>
         </div>
+        <figcaption className="text-base font-medium font-sans text-white">
+          {name}
+        </figcaption>
       </div>
-      <blockquote className="mt-6 text-base font-mono text-gray-300 leading-relaxed">
+      <blockquote className="mt-3 text-xs font-mono text-gray-300 leading-relaxed">
         "{body}"
       </blockquote>
       
@@ -88,12 +74,12 @@ export const Testimonials: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 mb-16 text-center">
             <h2 className="text-sm font-mono text-accent uppercase tracking-widest mb-4">Social Proof</h2>
             <h3 className="text-4xl md:text-5xl font-sans font-bold text-white mb-6">
-            Trusted by the <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-purple-500">fastest growing</span> brands.
+            Trusted by <span className="text-accent">High-Velocity</span> Brands.
             </h3>
         </div>
       </SectionWrapper>
 
-      <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
+      <div className="relative flex h-[600px] w-full flex-col items-center justify-center overflow-hidden">
         <Marquee pauseOnHover className="[--duration:20s]">
           {firstRow.map((review) => (
             <ReviewCard key={review.username} {...review} />

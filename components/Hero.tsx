@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-xl text-base md:text-lg text-text-secondary mb-10 font-mono leading-relaxed px-4"
         >
-          Predictable lead acquisition for Ontario's <span className="text-white font-bold">HVAC, Construction, and Manufacturing</span> leaders.
+          Predictable leads for Canada's <span className="text-white font-bold">Plumbing, Roofing, Property Care, Tiling, Handyman,</span> and trades alike.
         </motion.p>
 
         <motion.div 

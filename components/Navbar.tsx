@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowLeft } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { NavItem } from '../types';
 import { Logo } from './Logo';
 
 const navItems: NavItem[] = [
-  { label: ' The System', href: '#system' },
-  { label: 'Comparison', href: '#comparison' },
-  { label: 'Data', href: '#metrics' },
-  { label: 'Results', href: '#work' },
+  { label: 'The System', href: '/#system' },
+  { label: 'Comparison', href: '/#comparison' },
+  { label: 'Data', href: '/#metrics' },
+  { label: 'Results', href: '/#work' },
 ];
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isServicePage = location.pathname.startsWith('/services/');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,42 +29,60 @@ export const Navbar: React.FC = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
         isScrolled
-          ? 'bg-background/90 backdrop-blur-md border-white/5 py-4'
-          : 'bg-transparent border-transparent py-6'
+          ? 'bg-background/90 backdrop-blur-md border-white/5'
+          : 'bg-transparent border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2">
-           <Logo className="scale-75 origin-left" />
-        </a>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {navItems.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              className="text-sm font-mono text-text-secondary hover:text-accent transition-colors duration-200 uppercase tracking-widest"
-            >
-              {item.label}
-            </a>
-          ))}
-          <a
-            href="#qualify"
-            className="neon-button px-5 py-2 text-xs font-bold font-sans uppercase tracking-wider rounded-xl"
-          >
-            Check Availability
+      {/* Main nav row */}
+      <div className={`transition-all duration-300 ${isScrolled ? 'py-4' : 'py-6'}`}>
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          <a href="/" className="flex items-center gap-2">
+            <Logo className="scale-75 origin-left" />
           </a>
-        </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X /> : <Menu />}
-        </button>
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {navItems.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-sm font-mono text-text-secondary hover:text-accent transition-colors duration-200 uppercase tracking-widest"
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href="/#qualify"
+              className="neon-button px-5 py-2 text-xs font-bold font-sans uppercase tracking-wider rounded-xl"
+            >
+              Check Availability
+            </a>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            className="md:hidden text-white"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X /> : <Menu />}
+          </button>
+        </div>
       </div>
+
+      {/* Breadcrumb — only shown on service pages, sits directly below nav row */}
+      {isServicePage && (
+        <div className="border-t border-white/5 bg-background/60 backdrop-blur-md py-2.5 px-6">
+          <div className="max-w-5xl mx-auto">
+            <a
+              href="/#services"
+              className="inline-flex items-center gap-2 font-mono text-xs text-text-secondary hover:text-accent transition-colors uppercase tracking-widest"
+            >
+              <ArrowLeft className="w-3 h-3" />
+              Back to Services
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
@@ -71,11 +92,18 @@ export const Navbar: React.FC = () => {
               key={item.label}
               href={item.href}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg font-sans text-text-secondary hover:text-white"
+              className="text-sm font-mono text-text-secondary hover:text-accent transition-colors uppercase tracking-widest"
             >
               {item.label}
             </a>
           ))}
+          <a
+            href="/#qualify"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="neon-button text-center px-5 py-3 text-xs font-bold font-sans uppercase tracking-wider rounded-xl"
+          >
+            Check Availability
+          </a>
         </div>
       )}
     </nav>

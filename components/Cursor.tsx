@@ -6,6 +6,9 @@ export const Cursor: React.FC = () => {
   useEffect(() => {
     if (!cursorRef.current) return;
 
+    // Don't show custom cursor on touch devices
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
     const cursor = cursorRef.current;
     const root = document.body;
 

@@ -6,43 +6,39 @@ import { CaseStudy } from '../types';
 const cases: CaseStudy[] = [
   {
     id: '01',
-    client: 'Apex Structures',
-    metric: 'Quote Value',
-    value: '$2.4M',
-    // Construction Site / High Rise
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop',
-    description: 'Generated 14 qualified commercial tenders in 60 days for a steel erection firm.',
-    tags: ['Construction', 'B2B'],
+    client: 'Ontario Roofing Co.',
+    metric: 'Pipeline Value',
+    value: '$380K',
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop',
+    description: 'Generated 12 qualified residential roofing estimates in 60 days via paid social.',
+    tags: ['Roofing', 'Paid Social'],
   },
   {
     id: '02',
-    client: 'Core HVAC Systems',
-    metric: 'Lead Vol',
-    value: '+340%',
-    // Industrial HVAC / Piping
-    image: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=2070&auto=format&fit=crop',
-    description: 'Scaling residential & commercial install bookings during off-season.',
-    tags: ['HVAC', 'Service'],
+    client: 'GTA Plumbing & Drain',
+    metric: 'Lead Volume',
+    value: '+149%',
+    image: 'https://images.unsplash.com/photo-1585704032915-c3400ca199e7?q=80&w=2070&auto=format&fit=crop',
+    description: 'Year-over-year call volume growth through a combined paid social and funnel system.',
+    tags: ['Plumbing', 'Service'],
   },
   {
     id: '03',
-    client: 'Titan Mfg.',
-    metric: 'CPA',
-    value: '-65%',
-    // Welding / Sparks / Manufacturing
-    image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop',
-    description: 'Recruiting skilled welders and acquiring custom fabrication contracts.',
-    tags: ['Manufacturing', 'Recruiting'],
+    client: 'Property Care Business',
+    metric: 'Cost Per Lead',
+    value: '-42%',
+    image: 'https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?q=80&w=2070&auto=format&fit=crop',
+    description: 'Cut acquisition costs through audience refinement and landing page optimization.',
+    tags: ['Property Care', 'CRO'],
   },
   {
     id: '04',
-    client: 'Ironclad Logistics',
-    metric: 'Revenue',
-    value: '$850k+',
-    // Trucking / Logistics
-    image: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2070&auto=format&fit=crop',
-    description: 'Fleet expansion campaign targeting high-value freight partners.',
-    tags: ['Logistics', 'Transport'],
+    client: 'Handyman & Reno Co.',
+    metric: 'Revenue Added',
+    value: '$91K',
+    image: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?q=80&w=2070&auto=format&fit=crop',
+    description: 'Booked 90 days of consistent project pipeline from a standing start in 3 months.',
+    tags: ['Handyman', 'Local Ads'],
   },
 ];
 
@@ -63,6 +59,7 @@ export const CaseStudies: React.FC = () => {
           <h3 className="text-4xl md:text-5xl font-sans font-bold text-white">
             Blue Collar Data.
           </h3>
+          <p className="text-xs font-mono text-text-secondary mt-3">Results anonymized to protect client privacy.</p>
         </div>
         <div className="flex gap-2">
             <button onClick={() => scroll('left')} className="w-10 h-10 border border-white/20 flex items-center justify-center text-white hover:border-accent hover:text-accent transition cursor-pointer">←</button>

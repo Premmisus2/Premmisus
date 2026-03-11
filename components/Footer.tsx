@@ -16,7 +16,7 @@ export const Footer: React.FC = () => {
               Ready to <span className="text-accent">dominate</span> your niche?
             </h2>
             <p className="text-text-secondary font-mono text-lg mb-8 max-w-md">
-              We only work with 5 new partners per quarter to ensure maximum attention and results.
+              We only work with 10 new partners per quarter to ensure maximum attention and results.
             </p>
             <Button href="#qualify" withArrow className="bg-accent text-black text-lg py-6 px-10 border-none hover:bg-white hover:text-black">
               Apply for Partnership
@@ -35,9 +35,9 @@ export const Footer: React.FC = () => {
             <div>
               <h4 className="font-mono text-sm text-white font-bold uppercase mb-6">Company</h4>
               <ul className="space-y-4 font-mono text-sm text-text-secondary">
-                <li><a href="#system" className="hover:text-accent transition-colors">About</a></li>
+                <li><a href="/about" className="hover:text-accent transition-colors">About</a></li>
                 <li><a href="mailto:careers@premmisus.ca" className="hover:text-accent transition-colors">Careers</a></li>
-                <li><a href="#qualify" className="hover:text-accent transition-colors">Contact</a></li>
+                <li><a href="/contact" className="hover:text-accent transition-colors">Contact</a></li>
               </ul>
             </div>
           </div>
@@ -47,9 +47,10 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-2">
             <Logo className="scale-75 origin-left" />
           </div>
-          <p className="font-mono text-xs text-zinc-600">
-            © {new Date().getFullYear()} Premmisus. All rights reserved.
-          </p>
+          <div className="flex items-center gap-6 font-mono text-xs text-zinc-600">
+            <p>© {new Date().getFullYear()} Premmisus. All rights reserved.</p>
+            <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
+          </div>
         </div>
       </div>
     </footer>

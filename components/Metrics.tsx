@@ -37,23 +37,22 @@ export const Metrics: React.FC = () => {
              {/* Abstract Dashboard Visualization */}
              <div className="bg-black/40 backdrop-blur-sm border border-white/10 p-6 md:p-8 relative z-10 rounded-xl">
                 <div className="flex justify-between items-center mb-6 border-b border-white/5 pb-4">
-                   <span className="font-mono text-xs text-text-secondary">Live Campaign Data</span>
-                   <div className="flex gap-2">
-                      <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                      <span className="font-mono text-xs text-green-500">Active</span>
+                   <span className="font-mono text-xs text-text-secondary">Sample Dashboard</span>
+                   <div className="flex gap-2 items-center">
+                      <span className="font-mono text-[10px] text-white/30 uppercase tracking-widest">Illustrative Data</span>
                    </div>
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-4 mb-6">
                    <div className="bg-black/20 p-4 border border-white/5 rounded-lg">
-                      <div className="text-xs text-text-secondary mb-1">Total Leads</div>
-                      <div className="text-2xl font-bold text-white">427</div>
-                      <div className="text-xs text-green-400 mt-1">↑ 12% vs last mo</div>
+                      <div className="text-xs text-text-secondary mb-1">Monthly Leads</div>
+                      <div className="text-2xl font-bold text-white">52</div>
+                      <div className="text-xs text-green-400 mt-1">↑ 31% vs last mo</div>
                    </div>
                    <div className="bg-black/20 p-4 border border-white/5 rounded-lg">
                       <div className="text-xs text-text-secondary mb-1">Cost Per Lead</div>
-                      <div className="text-2xl font-bold text-white">$24.10</div>
-                      <div className="text-xs text-green-400 mt-1">↓ 18% optimized</div>
+                      <div className="text-2xl font-bold text-white">$48</div>
+                      <div className="text-xs text-green-400 mt-1">↓ 22% optimized</div>
                    </div>
                 </div>
 
@@ -62,6 +61,7 @@ export const Metrics: React.FC = () => {
                       <div key={i} className="w-full bg-accent rounded-t-sm" style={{ height: `${h}%` }} />
                    ))}
                 </div>
+                <p className="text-[10px] font-mono text-white/20 mt-4 text-center">Sample data based on Canadian trades industry benchmarks. Actual results vary.</p>
              </div>
              
              {/* Glow behind dashboard */}
