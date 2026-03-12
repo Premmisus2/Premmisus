@@ -51,7 +51,7 @@ export const Chatbot: React.FC = () => {
     } catch {
       setMessages(prev => [
         ...prev,
-        { role: 'assistant', content: 'Something went wrong. Try reaching us directly at contact@premmisus.com.' },
+        { role: 'assistant', content: 'Having trouble connecting right now. You can reach us directly at contact@premmisus.com — we\'ll get back to you fast.' },
       ]);
     } finally {
       setIsLoading(false);
