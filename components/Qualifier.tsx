@@ -52,10 +52,11 @@ export const Qualifier: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const GHL_KEY = 'pit-5e9f78ef-6844-437c-8ab1-e3bea48ba900';
+    const GHL_KEY = 'pit-9060b84c-83ba-47d9-8ad8-7d43f080721d';
     const LOCATION_ID = 'ugg4v4G1WJMtqGcWFUp5';
     const PIPELINE_ID = 'M3vmZOkpNgw7SzdZr4rY';
     const STAGE_ID = '9050e688-40df-4978-96cf-de41935cd791';
+    const WORKFLOW_ID = '606fef15-6e78-4e9b-b48e-a12f5872433c';
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${GHL_KEY}`,
@@ -88,7 +89,7 @@ export const Qualifier: React.FC = () => {
       const contactData = await contactRes.json();
       const contactId = contactData?.contact?.id;
 
-      // 2. Add to pipeline
+      // 2. Add to pipeline + enroll in workflow
       if (contactId) {
         await fetch('https://services.leadconnectorhq.com/opportunities/', {
           method: 'POST',
@@ -102,6 +103,12 @@ export const Qualifier: React.FC = () => {
             status: 'open',
             monetaryValue: 0,
           }),
+        });
+
+        await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/workflow/${WORKFLOW_ID}`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ eventStartTime: new Date().toISOString() }),
         });
       }
 
