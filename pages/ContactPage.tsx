@@ -10,16 +10,41 @@ export const ContactPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const subject = encodeURIComponent(`Message from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`);
-    window.location.href = `mailto:contact@premmisus.com?subject=${subject}&body=${body}`;
-    setTimeout(() => {
+
+    const GHL_KEY = 'pit-5e9f78ef-6844-437c-8ab1-e3bea48ba900';
+    const LOCATION_ID = 'ugg4v4G1WJMtqGcWFUp5';
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${GHL_KEY}`,
+      'Version': '2021-07-28',
+    };
+
+    try {
+      const nameParts = formData.name.trim().split(' ');
+      await fetch('https://services.leadconnectorhq.com/contacts/', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          locationId: LOCATION_ID,
+          firstName: nameParts[0],
+          lastName: nameParts.slice(1).join(' ') || '',
+          email: formData.email,
+          source: 'Website Contact Form',
+          tags: ['contact-form'],
+          customFields: [
+            { id: 'Kp9u8kpsPLH1ps31VR7d', value: 'Website Contact Form' },
+          ],
+        }),
+      });
+    } catch (error) {
+      console.error('GHL submission error:', error);
+    } finally {
       setIsSubmitting(false);
       setSubmitted(true);
-    }, 800);
+    }
   };
 
   return (
@@ -107,12 +132,12 @@ export const ContactPage: React.FC = () => {
                     <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center text-accent mb-6 border border-accent/50">
                       <Check className="w-8 h-8" />
                     </div>
-                    <h4 className="text-3xl font-sans font-bold text-white mb-4">Message Ready.</h4>
+                    <h4 className="text-3xl font-sans font-bold text-white mb-4">Message Received.</h4>
                     <p className="text-text-secondary font-mono mb-2 max-w-sm">
-                      Your email client should have opened with your message pre-filled.
+                      We've received your message and will be in touch shortly.
                     </p>
                     <p className="text-text-secondary font-mono text-xs mb-8">
-                      If it didn't, email us directly at{' '}
+                      You can also reach us directly at{' '}
                       <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">
                         contact@premmisus.com
                       </a>
