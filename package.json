@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
     "flubber": "^0.4.2",
     "framer-motion": "^11.0.0",
     "gsap": "^3.14.2",

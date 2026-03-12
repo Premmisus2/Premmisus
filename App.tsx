@@ -11,6 +11,7 @@ import { Testimonials } from './components/Testimonials';
 import { Qualifier } from './components/Qualifier';
 import { Footer } from './components/Footer';
 import { Cursor } from './components/Cursor';
+import { Chatbot } from './components/Chatbot';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { ContactPage } from './pages/ContactPage';
@@ -50,6 +51,7 @@ function HomePage() {
 function App() {
   return (
     <BrowserRouter>
+      <Chatbot />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/services/:slug" element={<ServiceDetailPage />} />
