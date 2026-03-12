@@ -144,7 +144,7 @@ export const ContactPage: React.FC = () => {
                     </p>
                     <a
                       href="/"
-                      className="border border-accent text-accent font-mono font-bold uppercase py-4 px-12 hover:bg-accent hover:text-black transition-colors"
+                      className="border border-accent text-accent font-mono font-bold uppercase py-4 px-12 hover:bg-accent hover:text-black transition-colors rounded-xl"
                     >
                       Back to Home
                     </a>
