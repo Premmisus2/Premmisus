@@ -41,7 +41,7 @@ export const Methodology: React.FC = () => {
                 <SectionWrapper>
                   <h2 className="text-xs md:text-sm font-mono text-accent uppercase tracking-widest mb-4">Proprietary Method</h2>
                   <h3 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
-                    The Canadian Industrial <br/>
+                    The Canadian Trades <br/>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">Lead Engine.</span>
                   </h3>
                   <p className="text-text-secondary font-mono leading-relaxed mb-8 text-base md:text-lg">

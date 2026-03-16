@@ -43,7 +43,7 @@ export const AboutPage: React.FC = () => {
       <section className="py-16 border-t border-b border-white/5">
         <SectionWrapper>
           <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
-            <Stat value="10" label="Partners per quarter" />
+            <Stat value="50+" label="Businesses assessed" />
             <Stat value="6+" label="Active niches served" />
             <Stat value="$48" label="Avg. cost per lead" />
             <Stat value="3.2x" label="Avg. client ROAS" />
@@ -118,7 +118,7 @@ export const AboutPage: React.FC = () => {
               href="/#qualify"
               className="neon-button inline-block px-12 py-4 font-mono font-bold uppercase tracking-wider text-sm"
             >
-              Check Availability
+              Book a Free Strategy Call
             </a>
           </div>
         </SectionWrapper>

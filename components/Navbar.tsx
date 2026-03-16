@@ -8,7 +8,7 @@ const navItems: NavItem[] = [
   { label: 'The System', href: '/#system' },
   { label: 'Comparison', href: '/#comparison' },
   { label: 'Data', href: '/#metrics' },
-  { label: 'Results', href: '/#work' },
+  { label: 'Results', href: '/#services' },
 ];
 
 export const Navbar: React.FC = () => {
@@ -55,7 +55,7 @@ export const Navbar: React.FC = () => {
               href="/#qualify"
               className="neon-button px-5 py-2 text-xs font-bold font-sans uppercase tracking-wider rounded-xl"
             >
-              Check Availability
+              Book a Free Call
             </a>
           </div>
 
@@ -102,7 +102,7 @@ export const Navbar: React.FC = () => {
             onClick={() => setIsMobileMenuOpen(false)}
             className="neon-button text-center px-5 py-3 text-xs font-bold font-sans uppercase tracking-wider rounded-xl"
           >
-            Check Availability
+            Book a Free Call
           </a>
         </div>
       )}

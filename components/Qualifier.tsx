@@ -13,7 +13,7 @@ const questions: Question[] = [
   {
     id: 1,
     text: "Which industry describes you best?",
-    options: ["Plumbing & Drain", "Roofing & Exterior", "Property Care / Cleaning", "Handyman & Renovation", "Tiling & Flooring", "Other"]
+    options: ["Plumbing & Drain", "Roofing & Exterior", "Property Care / Cleaning", "Handyman & Renovation", "Landscaping", "Electrical", "HVAC", "Other"]
   },
   {
     id: 2,
@@ -30,14 +30,15 @@ const questions: Question[] = [
 export const Qualifier: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isQualified, setIsQualified] = useState<boolean | null>(null);
-  const [isDisqualified, setIsDisqualified] = useState(false);
+  const [showOtherInput, setShowOtherInput] = useState(false);
+  const [otherIndustry, setOtherIndustry] = useState('');
   const [answers, setAnswers] = useState<Record<string, string>>({});
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', businessName: '', description: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', businessName: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleOptionClick = (option: string) => {
     if (currentStep === 0 && option === 'Other') {
-      setIsDisqualified(true);
+      setShowOtherInput(true);
       return;
     }
     const currentQuestion = questions[currentStep].text;
@@ -48,68 +49,28 @@ export const Qualifier: React.FC = () => {
     }
   };
 
+  const handleOtherSubmit = () => {
+    if (!otherIndustry.trim()) return;
+    const currentQuestion = questions[currentStep].text;
+    setAnswers(prev => ({ ...prev, [currentQuestion]: `Other: ${otherIndustry}` }));
+    setShowOtherInput(false);
+    setCurrentStep(prev => prev + 1);
+  };
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const GHL_KEY = 'pit-9060b84c-83ba-47d9-8ad8-7d43f080721d';
-    const LOCATION_ID = 'ugg4v4G1WJMtqGcWFUp5';
-    const PIPELINE_ID = 'M3vmZOkpNgw7SzdZr4rY';
-    const STAGE_ID = '9050e688-40df-4978-96cf-de41935cd791';
-    const WORKFLOW_ID = '606fef15-6e78-4e9b-b48e-a12f5872433c';
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${GHL_KEY}`,
-      'Version': '2021-07-28',
-    };
-
     try {
-      // 1. Create contact
-      const nameParts = formData.name.trim().split(' ');
-      const contactRes = await fetch('https://services.leadconnectorhq.com/contacts/', {
+      const res = await fetch('/api/ghl', {
         method: 'POST',
-        headers,
-        body: JSON.stringify({
-          locationId: LOCATION_ID,
-          firstName: nameParts[0],
-          lastName: nameParts.slice(1).join(' ') || '',
-          email: formData.email,
-          phone: formData.phone,
-          companyName: formData.businessName,
-          source: 'Website Qualifier',
-          tags: ['website-lead'],
-          customFields: [
-            { id: 'vShDN6Xro4OB7rNCQRU5', value: answers['Which industry describes you best?'] ?? '' },
-            { id: 'bRhvYPPoorVc4PSj2QrP', value: answers['What is your current monthly revenue?'] ?? '' },
-            { id: 'BS8ZhC5sYkNoku3PH59w', value: formData.businessName },
-            { id: 'Kp9u8kpsPLH1ps31VR7d', value: 'Website Qualifier' },
-          ],
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formData, answers, source: 'Website Qualifier' }),
       });
-      const contactData = await contactRes.json();
-      const contactId = contactData?.contact?.id;
 
-      // 2. Add to pipeline + enroll in workflow
-      if (contactId) {
-        await fetch('https://services.leadconnectorhq.com/opportunities/', {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            locationId: LOCATION_ID,
-            pipelineId: PIPELINE_ID,
-            pipelineStageId: STAGE_ID,
-            contactId,
-            name: `${formData.businessName} — ${answers['Which industry describes you best?'] ?? 'Website Lead'}`,
-            status: 'open',
-            monetaryValue: 0,
-          }),
-        });
-
-        await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/workflow/${WORKFLOW_ID}`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({ eventStartTime: new Date().toISOString() }),
-        });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        console.error('GHL submission failed:', res.status, errData);
       }
 
       setIsQualified(true);
@@ -128,11 +89,11 @@ export const Qualifier: React.FC = () => {
           <div className="text-center mb-16">
             <h2 className="text-sm font-mono text-accent uppercase tracking-widest mb-4">Capacity Audit</h2>
             <h3 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
-              Are you ready to scale?
+              See If We Can Help
             </h3>
             
             <p className="text-text-secondary font-mono max-w-lg mx-auto mt-8">
-              We operate on a partnership model. We do not accept every client. Use the calculator below to check availability for your territory.
+              We work exclusively with Canadian trades businesses. Answer a few quick questions and we'll be in touch.
             </p>
           </div>
 
@@ -143,23 +104,31 @@ export const Qualifier: React.FC = () => {
             )}
 
             <AnimatePresence mode="wait">
-              {isDisqualified ? (
+              {showOtherInput ? (
                 <motion.div
-                  key="disqualified"
+                  key="other-input"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center flex flex-col items-center"
+                  className="text-center flex flex-col items-center max-w-md mx-auto"
                 >
-                  <h4 className="text-3xl font-sans font-bold text-white mb-4">Not quite a fit — yet.</h4>
-                  <p className="text-text-secondary font-mono mb-8 max-w-md">
-                    Our system is built specifically for Canadian trades and home service businesses. If that changes, we'd love to work with you.
+                  <h4 className="text-2xl font-sans font-bold text-white mb-4">Tell us your industry</h4>
+                  <p className="text-text-secondary font-mono mb-6 text-sm">
+                    We work with all kinds of trades and service businesses.
                   </p>
-                  <a
-                    href="/contact"
-                    className="border border-white/20 text-text-secondary font-mono text-sm uppercase tracking-widest py-3 px-8 hover:border-accent hover:text-accent transition-colors"
+                  <input
+                    type="text"
+                    placeholder="e.g. Painting, Fencing, Electrical..."
+                    className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors mb-4"
+                    value={otherIndustry}
+                    onChange={e => setOtherIndustry(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && handleOtherSubmit()}
+                  />
+                  <button
+                    onClick={handleOtherSubmit}
+                    className="w-full bg-accent text-black font-mono font-bold uppercase tracking-wider p-4 hover:bg-white transition-colors neon-button"
                   >
-                    Get in Touch Anyway
-                  </a>
+                    Continue
+                  </button>
                 </motion.div>
               ) : !isQualified && currentStep < questions.length ? (
                 <motion.div
@@ -198,10 +167,10 @@ export const Qualifier: React.FC = () => {
                 >
                   <div className="text-center mb-8">
                     <h4 className="text-2xl font-sans font-bold text-white mb-2">
-                      Protocol Generated
+                      Almost There
                     </h4>
                     <p className="text-sm font-mono text-text-secondary">
-                      Where should we send your custom growth protocol?
+                      Takes 30 seconds. We'll reach out within 24 hours.
                     </p>
                   </div>
                   
@@ -244,16 +213,6 @@ export const Qualifier: React.FC = () => {
                         className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors"
                         value={formData.businessName}
                         onChange={e => setFormData({...formData, businessName: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <textarea
-                        required
-                        placeholder="Brief description of your business and what you're looking to achieve"
-                        rows={3}
-                        className="w-full bg-white/5 border border-white/10 p-4 font-mono text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors resize-none"
-                        value={formData.description}
-                        onChange={e => setFormData({...formData, description: e.target.value})}
                       />
                     </div>
                     <p className="text-[11px] font-mono text-text-secondary leading-relaxed text-center px-2">

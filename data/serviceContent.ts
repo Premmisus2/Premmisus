@@ -48,7 +48,7 @@ export const serviceDetails: ServiceDetail[] = [
     ],
     techStack: ['Meta Ads Manager', 'Google Ads', 'Server-Side GA4', 'GoHighLevel', 'Offline Conversion Tracking'],
     whoItsFor:
-      'HVAC, construction, manufacturing, and logistics businesses across Canada that need a predictable, trackable flow of qualified leads — not guesswork.',
+      'Plumbing, roofing, cleaning, landscaping, renovation, and trades businesses across Canada that need a predictable, trackable flow of qualified leads — not guesswork.',
     icon: Target,
   },
   {
@@ -133,7 +133,7 @@ export const serviceDetails: ServiceDetail[] = [
     overview:
       'Most businesses lose the majority of their leads simply by not following up fast enough — or at all. The average lead goes cold within minutes. We build the automated systems that follow up for you: email sequences, SMS flows, remarketing campaigns, and CRM pipelines that keep every lead warm until they are ready to buy. We set it up, we manage it, and we keep it running. You close the deals. We handle everything before the call.',
     included: [
-      'CRM setup and full pipeline management (GHL, HubSpot, Pipedrive)',
+      'CRM setup and full pipeline management (GoHighLevel)',
       'Email marketing sequences and ongoing campaign management',
       'SMS follow-up automation — triggered by lead behaviour',
       'Remarketing campaign management across Meta and Google',
@@ -157,7 +157,7 @@ export const serviceDetails: ServiceDetail[] = [
           'We manage ongoing campaigns and optimize based on open rates, reply rates, and booked calls. You get a weekly report in whatever format works best for your team.',
       },
     ],
-    techStack: ['GoHighLevel', 'n8n', 'Zapier', 'HubSpot', 'Pipedrive', 'Notion', 'Slack', 'Google Sheets'],
+    techStack: ['GoHighLevel', 'n8n', 'Zapier', 'Google Sheets', 'Slack', 'Notion'],
     whoItsFor:
       'Businesses generating leads but not closing enough of them. The problem is almost always in the follow-up — and almost always fixable.',
     icon: BarChart2,

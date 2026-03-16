@@ -170,13 +170,13 @@ export const ServiceDetailPage: React.FC = () => {
                 Let's build your system.
               </h3>
               <p className="font-mono text-text-secondary max-w-lg mx-auto mb-10 text-sm">
-                We only take on 10 new partners per quarter. Check if your territory is still available.
+                Your competitors are already running systems like this. See how we can build yours.
               </p>
               <a
                 href="/#qualify"
                 className="neon-button inline-flex items-center gap-3 font-mono font-bold uppercase tracking-wider px-10 py-4 text-sm"
               >
-                Apply for Partnership
+                Book a Free Strategy Call
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>

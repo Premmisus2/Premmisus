@@ -23,7 +23,7 @@ export const Metrics: React.FC = () => {
                 </li>
                 <li className="flex items-center gap-2">
                    <div className="w-1 h-1 bg-accent" />
-                   CRM Integration (HubSpot, Pipedrive)
+                   CRM Integration (GoHighLevel)
                 </li>
                 <li className="flex items-center gap-2">
                    <div className="w-1 h-1 bg-accent" />

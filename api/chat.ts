@@ -46,7 +46,7 @@ What's included:
 - Multi-angle creative testing to find what converts fastest
 - Real-time CPA monitoring and budget optimization
 - Reporting tied to revenue, not impressions or reach
-Who it's for: HVAC, construction, manufacturing, and logistics businesses that need a predictable, trackable flow of qualified leads.
+Who it's for: Plumbing, roofing, cleaning, landscaping, renovation, and trades businesses across Canada that need a predictable, trackable flow of qualified leads.
 
 SERVICE 02 — CREATIVE STRATEGY
 Ad creative is the single biggest performance lever in paid social. We don't guess — we test systematically. We develop full creative direction, coordinate with vetted production partners for video, and handle everything from brief to live asset.

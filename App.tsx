@@ -6,7 +6,7 @@ import { Methodology } from './components/Methodology';
 import { Services } from './components/Services';
 import { Comparison } from './components/Comparison';
 import { Metrics } from './components/Metrics';
-import { CaseStudies } from './components/CaseStudies';
+import { FAQ } from './components/FAQ';
 import { Testimonials } from './components/Testimonials';
 import { Qualifier } from './components/Qualifier';
 import { Footer } from './components/Footer';
@@ -39,7 +39,7 @@ function HomePage() {
         <Services />
         <Comparison />
         <Metrics />
-        <CaseStudies />
+        <FAQ />
         <Testimonials />
         <Qualifier />
         <Footer />

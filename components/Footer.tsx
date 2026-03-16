@@ -13,13 +13,13 @@ export const Footer: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-start mb-24 gap-12">
           <div className="max-w-xl">
             <h2 className="text-5xl md:text-7xl font-sans font-bold text-white mb-8 tracking-tighter">
-              Ready to <span className="text-accent">dominate</span> your niche?
+              Ready to See What's <span className="text-accent">Possible</span>?
             </h2>
             <p className="text-text-secondary font-mono text-lg mb-8 max-w-md">
-              We only work with 10 new partners per quarter to ensure maximum attention and results.
+              Full-stack lead systems engineered for Canadian trades businesses. Let's build yours.
             </p>
             <Button href="#qualify" withArrow className="bg-accent text-black text-lg py-6 px-10 border-none hover:bg-white hover:text-black">
-              Apply for Partnership
+              Book a Free Strategy Call
             </Button>
           </div>
 
@@ -36,7 +36,6 @@ export const Footer: React.FC = () => {
               <h4 className="font-mono text-sm text-white font-bold uppercase mb-6">Company</h4>
               <ul className="space-y-4 font-mono text-sm text-text-secondary">
                 <li><a href="/about" className="hover:text-accent transition-colors">About</a></li>
-                <li><a href="mailto:careers@premmisus.ca" className="hover:text-accent transition-colors">Careers</a></li>
                 <li><a href="/contact" className="hover:text-accent transition-colors">Contact</a></li>
               </ul>
             </div>
