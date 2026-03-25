@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://premmisus.ca/sitemap.xml
+Sitemap: https://www.premmisus.ca/sitemap.xml
 
 User-agent: GPTBot
 Allow: /
