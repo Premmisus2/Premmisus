@@ -6,7 +6,7 @@ import { CaseStudy } from '../types';
 const cases: CaseStudy[] = [
   {
     id: '01',
-    client: 'Ontario Roofing Co.',
+    client: 'Canadian Roofing Co.',
     metric: 'Pipeline Value',
     value: '$380K',
     image: 'https://images.unsplash.com/photo-1632759145351-1d592919f522?q=80&w=1740&auto=format&fit=crop',

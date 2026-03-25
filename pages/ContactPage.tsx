@@ -14,41 +14,20 @@ export const ContactPage: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const GHL_KEY = 'pit-9060b84c-83ba-47d9-8ad8-7d43f080721d';
-    const LOCATION_ID = 'ugg4v4G1WJMtqGcWFUp5';
-    const WORKFLOW_ID = '606fef15-6e78-4e9b-b48e-a12f5872433c';
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${GHL_KEY}`,
-      'Version': '2021-07-28',
-    };
-
     try {
-      const nameParts = formData.name.trim().split(' ');
-      const contactRes = await fetch('https://services.leadconnectorhq.com/contacts/', {
+      const res = await fetch('/api/ghl', {
         method: 'POST',
-        headers,
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          locationId: LOCATION_ID,
-          firstName: nameParts[0],
-          lastName: nameParts.slice(1).join(' ') || '',
-          email: formData.email,
+          formData: { name: formData.name, email: formData.email },
+          answers: { message: formData.message },
           source: 'Website Contact Form',
-          tags: ['contact-form'],
-          customFields: [
-            { id: 'Kp9u8kpsPLH1ps31VR7d', value: 'Website Contact Form' },
-          ],
         }),
       });
-      const contactData = await contactRes.json();
-      const contactId = contactData?.contact?.id;
 
-      if (contactId) {
-        await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/workflow/${WORKFLOW_ID}`, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({ eventStartTime: new Date().toISOString() }),
-        });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        console.error('GHL submission failed:', res.status, errData);
       }
     } catch (error) {
       console.error('GHL submission error:', error);

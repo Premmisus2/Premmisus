@@ -91,7 +91,7 @@ export const Qualifier: React.FC = () => {
             <h3 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
               See If We Can Help
             </h3>
-            
+
             <p className="text-text-secondary font-mono max-w-lg mx-auto mt-8">
               We work exclusively with Canadian trades businesses. Answer a few quick questions and we'll be in touch.
             </p>

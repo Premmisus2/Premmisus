@@ -22,12 +22,12 @@ const reviews = [
 
 interface ReviewCardProps {
   name: string;
+  username: string;
   body: string;
 }
 
-const ReviewCard: React.FC<ReviewCardProps> = ({ name, body }) => {
+const ReviewCard: React.FC<ReviewCardProps> = ({ name, username, body }) => {
   return (
-    // Removed bg-surface, added transparent glass style
     <figure
       className="relative w-80 cursor-pointer overflow-hidden rounded-sm border border-white/10 bg-black/20 backdrop-blur-sm p-5 transition-all duration-300 hover:border-accent/30 hover:bg-white/5"
     >
@@ -35,14 +35,17 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ name, body }) => {
         <div className="w-10 h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center shrink-0">
           <span className="text-sm font-mono text-zinc-400">{name[0]}</span>
         </div>
-        <figcaption className="text-base font-medium font-sans text-white">
-          {name}
-        </figcaption>
+        <div className="flex flex-col">
+          <figcaption className="text-base font-medium font-sans text-white">
+            {name}
+          </figcaption>
+          <span className="text-xs font-mono text-accent/70">{username}</span>
+        </div>
       </div>
       <blockquote className="mt-3 text-xs font-mono text-gray-300 leading-relaxed">
         "{body}"
       </blockquote>
-      
+
       {/* Decorative accent */}
       <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-accent/5 to-transparent pointer-events-none" />
     </figure>
@@ -75,7 +78,7 @@ export const Testimonials: React.FC = () => {
             <ReviewCard key={review.username} {...review} />
           ))}
         </Marquee>
-        
+
         {/* Gradients to fade edges - updated to transparent/black */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-black to-transparent"></div>
         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-black to-transparent"></div>

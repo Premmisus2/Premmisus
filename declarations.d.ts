@@ -1,1 +1,1 @@
-declare module 'flubber';
+// Type declarations for modules without types

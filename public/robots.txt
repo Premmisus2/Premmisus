@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://premmisus.ca/sitemap.xml
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /

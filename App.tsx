@@ -10,7 +10,6 @@ import { FAQ } from './components/FAQ';
 import { Testimonials } from './components/Testimonials';
 import { Qualifier } from './components/Qualifier';
 import { Footer } from './components/Footer';
-import { Cursor } from './components/Cursor';
 import { Chatbot } from './components/Chatbot';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { PrivacyPage } from './pages/PrivacyPage';
@@ -31,7 +30,6 @@ function HomePage() {
 
   return (
     <main className="bg-background text-text-primary selection:bg-accent selection:text-black relative min-h-screen grid-overlay">
-      <Cursor />
       <div className="relative z-10">
         <Navbar />
         <Hero />
