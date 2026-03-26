@@ -2,16 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { SectionWrapper } from './SectionWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Loader2 } from 'lucide-react';
-
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (container: string | HTMLElement, options: Record<string, unknown>) => string;
-      reset: (widgetId: string) => void;
-      remove: (widgetId: string) => void;
-    };
-  }
-}
+import '../types/turnstile.d.ts';
 
 interface Question {
   id: number;
@@ -54,6 +45,7 @@ export const Qualifier: React.FC = () => {
       turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
         sitekey: '0x4AAAAAACwEfcixkS53YLBM',
         callback: (token: string) => setTurnstileToken(token),
+        'expired-callback': () => setTurnstileToken(''),
         theme: 'dark',
         size: 'flexible',
       });
@@ -95,7 +87,7 @@ export const Qualifier: React.FC = () => {
       const res = await fetch('/api/ghl', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formData, answers, source: 'Website Qualifier', turnstileToken }),
+        body: JSON.stringify({ formData, answers, source: 'Website Qualifier', turnstileToken, website: '' }),
       });
 
       if (!res.ok) {
@@ -245,6 +237,8 @@ export const Qualifier: React.FC = () => {
                         onChange={e => setFormData({...formData, businessName: e.target.value})}
                       />
                     </div>
+                    {/* Honeypot — invisible to humans, bots fill it */}
+                    <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                     <div ref={turnstileRef} className="flex justify-center" />
                     <p className="text-[11px] font-mono text-text-secondary leading-relaxed text-center px-2">
                       By submitting, you consent to receive commercial communications from Premmisus via email and SMS. You may unsubscribe at any time.{' '}

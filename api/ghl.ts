@@ -15,24 +15,32 @@ export default async function handler(req: any, res: any) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  // Verify Cloudflare Turnstile token
-  if (turnstileToken) {
-    try {
-      const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret: process.env.TURNSTILE_SECRET_KEY,
-          response: turnstileToken,
-        }),
-      });
-      const turnstileData = await turnstileRes.json();
-      if (!turnstileData.success) {
-        return res.status(403).json({ error: 'Bot verification failed' });
-      }
-    } catch (err) {
-      console.error('Turnstile verification error:', err);
+  // Honeypot check — if this hidden field has a value, it's a bot
+  if (req.body.website) {
+    return res.status(200).json({ success: true }); // Silent success so bots think it worked
+  }
+
+  // Verify Cloudflare Turnstile token (required)
+  if (!turnstileToken) {
+    return res.status(403).json({ error: 'Verification required' });
+  }
+
+  try {
+    const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: process.env.TURNSTILE_SECRET_KEY,
+        response: turnstileToken,
+      }),
+    });
+    const turnstileData = await turnstileRes.json();
+    if (!turnstileData.success) {
+      return res.status(403).json({ error: 'Bot verification failed' });
     }
+  } catch (err) {
+    console.error('Turnstile verification error:', err);
+    // Allow through if Cloudflare is down — don't block real users
   }
 
   const nameParts = formData.name.trim().split(' ');

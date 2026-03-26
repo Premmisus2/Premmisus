@@ -1,16 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Loader2 } from 'lucide-react';
-
-declare global {
-  interface Window {
-    turnstile?: {
-      render: (container: string | HTMLElement, options: Record<string, unknown>) => string;
-      reset: (widgetId: string) => void;
-      remove: (widgetId: string) => void;
-    };
-  }
-}
+import '../types/turnstile.d.ts';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { SectionWrapper } from '../components/SectionWrapper';
@@ -28,6 +19,7 @@ export const ContactPage: React.FC = () => {
       turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
         sitekey: '0x4AAAAAACwEfcixkS53YLBM',
         callback: (token: string) => setTurnstileToken(token),
+        'expired-callback': () => setTurnstileToken(''),
         theme: 'dark',
         size: 'flexible',
       });
@@ -53,6 +45,7 @@ export const ContactPage: React.FC = () => {
           answers: { message: formData.message },
           source: 'Website Contact Form',
           turnstileToken,
+          website: '',
         }),
       });
 
@@ -135,6 +128,8 @@ export const ContactPage: React.FC = () => {
                       value={formData.message}
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
                     />
+                    {/* Honeypot — invisible to humans, bots fill it */}
+                    <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                     <div ref={turnstileRef} className="flex justify-center" />
                     <button
                       type="submit"
