@@ -1,6 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Loader2 } from 'lucide-react';
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: string | HTMLElement, options: Record<string, unknown>) => string;
+      reset: (widgetId: string) => void;
+      remove: (widgetId: string) => void;
+    };
+  }
+}
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { SectionWrapper } from '../components/SectionWrapper';
@@ -9,6 +19,26 @@ export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (turnstileRef.current && window.turnstile && !turnstileWidgetId.current) {
+      turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: '0x4AAAAAACwEfcixkS53YLBM',
+        callback: (token: string) => setTurnstileToken(token),
+        theme: 'dark',
+        size: 'flexible',
+      });
+    }
+    return () => {
+      if (turnstileWidgetId.current && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetId.current);
+        turnstileWidgetId.current = null;
+      }
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +52,7 @@ export const ContactPage: React.FC = () => {
           formData: { name: formData.name, email: formData.email },
           answers: { message: formData.message },
           source: 'Website Contact Form',
+          turnstileToken,
         }),
       });
 
@@ -104,6 +135,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.message}
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
                     />
+                    <div ref={turnstileRef} className="flex justify-center" />
                     <button
                       type="submit"
                       disabled={isSubmitting}

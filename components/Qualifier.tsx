@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { SectionWrapper } from './SectionWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Loader2 } from 'lucide-react';
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: string | HTMLElement, options: Record<string, unknown>) => string;
+      reset: (widgetId: string) => void;
+      remove: (widgetId: string) => void;
+    };
+  }
+}
 
 interface Question {
   id: number;
@@ -35,6 +45,26 @@ export const Qualifier: React.FC = () => {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', businessName: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (currentStep === questions.length && turnstileRef.current && window.turnstile && !turnstileWidgetId.current) {
+      turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: '0x4AAAAAACwEfcixkS53YLBM',
+        callback: (token: string) => setTurnstileToken(token),
+        theme: 'dark',
+        size: 'flexible',
+      });
+    }
+    return () => {
+      if (turnstileWidgetId.current && window.turnstile) {
+        window.turnstile.remove(turnstileWidgetId.current);
+        turnstileWidgetId.current = null;
+      }
+    };
+  }, [currentStep]);
 
   const handleOptionClick = (option: string) => {
     if (currentStep === 0 && option === 'Other') {
@@ -65,7 +95,7 @@ export const Qualifier: React.FC = () => {
       const res = await fetch('/api/ghl', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formData, answers, source: 'Website Qualifier' }),
+        body: JSON.stringify({ formData, answers, source: 'Website Qualifier', turnstileToken }),
       });
 
       if (!res.ok) {
@@ -215,6 +245,7 @@ export const Qualifier: React.FC = () => {
                         onChange={e => setFormData({...formData, businessName: e.target.value})}
                       />
                     </div>
+                    <div ref={turnstileRef} className="flex justify-center" />
                     <p className="text-[11px] font-mono text-text-secondary leading-relaxed text-center px-2">
                       By submitting, you consent to receive commercial communications from Premmisus via email and SMS. You may unsubscribe at any time.{' '}
                       <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a>.

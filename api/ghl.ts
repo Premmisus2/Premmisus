@@ -9,10 +9,30 @@ export default async function handler(req: any, res: any) {
 
   const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/ugg4v4G1WJMtqGcWFUp5/webhook-trigger/9ARVupAhdYfb5uAaSgdZ';
 
-  const { formData, answers, source } = req.body;
+  const { formData, answers, source, turnstileToken } = req.body;
 
   if (!formData?.name || !formData?.email) {
     return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // Verify Cloudflare Turnstile token
+  if (turnstileToken) {
+    try {
+      const turnstileRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          secret: process.env.TURNSTILE_SECRET_KEY,
+          response: turnstileToken,
+        }),
+      });
+      const turnstileData = await turnstileRes.json();
+      if (!turnstileData.success) {
+        return res.status(403).json({ error: 'Bot verification failed' });
+      }
+    } catch (err) {
+      console.error('Turnstile verification error:', err);
+    }
   }
 
   const nameParts = formData.name.trim().split(' ');
