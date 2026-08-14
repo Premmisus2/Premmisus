@@ -14,7 +14,7 @@ const questions: Question[] = [
   {
     id: 1,
     text: "Which industry describes you best?",
-    options: ["Plumbing & Drain", "Roofing & Exterior", "Property Care / Cleaning", "Handyman & Renovation", "Landscaping", "Electrical", "HVAC", "Other"]
+    options: ["Plumbing & Drain", "Roofing & Exterior", "Property Care / Cleaning", "Handyman & Renovation", "Landscaping", "Electrical", "Other"]
   },
   {
     id: 2,
@@ -83,21 +83,23 @@ export const Qualifier: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      const res = await fetch('/api/ghl', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ formData, answers, source: 'Website Qualifier', turnstileToken, website: '' }),
-      });
+    const payload = { formData, answers, source: 'Website Qualifier', turnstileToken, website: '' };
 
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        console.error('GHL submission failed:', res.status, errData);
+    try {
+      // Fire GHL (CRM) and lead-notify (Sheets, email, Telegram, SMS) in parallel
+      const [ghlRes] = await Promise.all([
+        fetch('/api/ghl', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }),
+        fetch('/api/lead-notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(err => console.error('Lead notify error:', err)),
+      ]);
+
+      if (!ghlRes.ok) {
+        const errData = await ghlRes.json().catch(() => ({}));
+        console.error('GHL submission failed:', ghlRes.status, errData);
       }
 
       setIsQualified(true);
     } catch (error) {
-      console.error('GHL submission error:', error);
+      console.error('Form submission error:', error);
       setIsQualified(true);
     } finally {
       setIsSubmitting(false);

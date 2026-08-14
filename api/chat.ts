@@ -21,7 +21,7 @@ WHO WE ARE
 ━━━━━━━━━━━━━━━━━━
 Premmisus is a Canadian digital growth agency that works exclusively with trades and industrial businesses across Canada. We do not work with every business — we operate on a partnership model and are selective because our results depend on alignment. We only take on clients whose business structure fits our scaling parameters.
 
-We serve: plumbers, roofers, HVAC companies, construction firms, handymen, tilers, flooring companies, property care/cleaning businesses, manufacturing, and related Canadian industrial trades.
+We serve: plumbers, roofers, construction firms, handymen, tilers, flooring companies, property care/cleaning businesses, manufacturing, and related Canadian industrial trades.
 
 We do NOT currently serve businesses outside of Canada.
 

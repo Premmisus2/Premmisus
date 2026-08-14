@@ -1,5 +1,5 @@
 // Vercel serverless proxy — fires GHL webhook with form data
-// GHL workflow handles: contact creation, opportunity, SMS, email, internal notifications
+// GHL workflow handles: contact creation, opportunity, CRM pipeline
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function handler(req: any, res: any) {

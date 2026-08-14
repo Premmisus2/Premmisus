@@ -36,25 +36,27 @@ export const ContactPage: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    try {
-      const res = await fetch('/api/ghl', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          formData: { name: formData.name, email: formData.email },
-          answers: { message: formData.message },
-          source: 'Website Contact Form',
-          turnstileToken,
-          website: '',
-        }),
-      });
+    const payload = {
+      formData: { name: formData.name, email: formData.email },
+      answers: { message: formData.message },
+      source: 'Website Contact Form',
+      turnstileToken,
+      website: '',
+    };
 
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        console.error('GHL submission failed:', res.status, errData);
+    try {
+      // Fire GHL (CRM) and lead-notify (Sheets, email, Telegram, SMS) in parallel
+      const [ghlRes] = await Promise.all([
+        fetch('/api/ghl', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }),
+        fetch('/api/lead-notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(err => console.error('Lead notify error:', err)),
+      ]);
+
+      if (!ghlRes.ok) {
+        const errData = await ghlRes.json().catch(() => ({}));
+        console.error('GHL submission failed:', ghlRes.status, errData);
       }
     } catch (error) {
-      console.error('GHL submission error:', error);
+      console.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
       setSubmitted(true);

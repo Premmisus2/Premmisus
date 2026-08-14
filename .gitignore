@@ -4,3 +4,12 @@ dist/
 .env
 .vercel
 .env.vercel
+
+# Env files — broad catch-all to prevent future variants (.env.bak, .env.fresh,
+# .env.local.bak-20260813, .env.staging, etc.) from leaking secrets.
+# Added 2026-08-14 after a .env.local.bak holding SUPABASE_SERVICE_ROLE_KEY,
+# GHL_API_KEY and GOOGLE_CLIENT_SECRET was one commit away from GitHub —
+# the old rule (.env*.local) only matched names ENDING in .local.
+.env*
+!.env.example
+!.env.local.example
