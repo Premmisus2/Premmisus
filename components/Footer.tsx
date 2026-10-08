@@ -46,9 +46,11 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-2">
             <Logo className="scale-75 origin-left" />
           </div>
-          <div className="flex items-center gap-6 font-mono text-xs text-zinc-600">
-            <p>© {new Date().getFullYear()} Premmisus. All rights reserved.</p>
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 font-mono text-xs text-zinc-600">
+            <p>© {new Date().getFullYear()} Premmisus Inc. All rights reserved.</p>
+            <p>700 Osgoode Dr, London, ON N6E 2G2, Canada</p>
             <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-accent transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>

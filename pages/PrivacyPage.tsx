@@ -99,6 +99,16 @@ export const PrivacyPage: React.FC = () => {
                   "STOP" to any SMS, clicking "Unsubscribe" in any email, or contacting us directly at{' '}
                   <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">contact@premmisus.com</a>.
                 </p>
+                <p>
+                  <strong className="text-white">SMS terms.</strong> Message frequency varies. Message and
+                  data rates may apply. Reply HELP for help or STOP to opt out at any time. Carriers are
+                  not liable for delayed or undelivered messages.
+                </p>
+                <p>
+                  No mobile information will be shared with third parties or affiliates for marketing or
+                  promotional purposes. Text messaging originator opt-in data and consent will not be
+                  shared with any third parties.
+                </p>
               </Section>
 
               <Section title="6. Data Retention">
@@ -147,7 +157,8 @@ export const PrivacyPage: React.FC = () => {
                   For any questions or concerns about this Privacy Policy or our data practices, contact us at:
                 </p>
                 <p>
-                  <strong className="text-white">Premmisus</strong><br />
+                  <strong className="text-white">Premmisus Inc.</strong><br />
+                  700 Osgoode Dr, London, ON N6E 2G2, Canada<br />
                   <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">contact@premmisus.com</a>
                 </p>
               </Section>
