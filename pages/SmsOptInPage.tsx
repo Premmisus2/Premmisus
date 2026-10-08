@@ -16,9 +16,7 @@ import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 
-declare global {
-  interface Window { turnstile?: any }
-}
+// Window.turnstile is already declared in types/turnstile.d.ts — do not redeclare it.
 
 export const SmsOptInPage: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', businessName: '' });
