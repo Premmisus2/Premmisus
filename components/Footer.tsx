@@ -49,6 +49,8 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 font-mono text-xs text-zinc-600">
             <p>© {new Date().getFullYear()} Premmisus Inc. All rights reserved.</p>
             <p>700 Osgoode Dr, London, ON N6E 2G2, Canada</p>
+            <a href="tel:+12494682807" className="hover:text-accent transition-colors">(249) 468-2807</a>
+            <a href="mailto:contact@premmisus.com" className="hover:text-accent transition-colors">contact@premmisus.com</a>
             <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-accent transition-colors">Terms of Service</a>
           </div>

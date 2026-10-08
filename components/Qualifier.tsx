@@ -243,7 +243,7 @@ export const Qualifier: React.FC = () => {
                     <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                     <div ref={turnstileRef} className="flex justify-center" />
                     <p className="text-[11px] font-mono text-text-secondary leading-relaxed text-center px-2">
-                      By submitting, you consent to receive commercial communications from Premmisus via email and SMS about your inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to opt out at any time.{' '}
+                      By submitting, you consent to receive commercial communications from Premmisus Inc. via email and SMS about your inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help at any time.{' '}
                       <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a> ·{' '}
                       <a href="/terms" className="text-accent hover:underline">Terms</a>.
                     </p>
