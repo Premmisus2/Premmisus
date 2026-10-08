@@ -15,7 +15,7 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { formData, answers, source } = req.body;
+  const { formData, answers, source, smsConsent } = req.body;
 
   if (!formData?.name || !formData?.email) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -37,14 +37,16 @@ export default async function handler(req: any, res: any) {
 
   const results = await Promise.allSettled([
     // 1. Google Sheets — log the lead
-    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.GOOGLE_SHEET_ID}/values/Sheet1!A:K:append?valueInputOption=USER_ENTERED`, {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.GOOGLE_SHEET_ID}/values/Sheet1!A:L:append?valueInputOption=USER_ENTERED`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        values: [[date, formData.name, email, phone, businessName, industry, revenue, bottleneck, leadSource, message, 'New']],
+        // Column L is SMS consent. Logged alongside GHL so the two records agree —
+        // "No" means this number may be called and emailed, never texted.
+        values: [[date, formData.name, email, phone, businessName, industry, revenue, bottleneck, leadSource, message, 'New', smsConsent === true ? 'Yes' : 'No']],
       }),
     }),
 

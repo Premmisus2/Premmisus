@@ -35,6 +35,11 @@ export const Qualifier: React.FC = () => {
   const [otherIndustry, setOtherIndustry] = useState('');
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', businessName: '' });
+  // SMS consent is a separate, optional, unchecked-by-default opt-in. Carrier A2P review
+  // requires an explicit checkbox: passive "by submitting you agree" text does not qualify.
+  // Leaving it unticked must never block the form — we still want the lead and the phone
+  // number for calling, which carries its own consent.
+  const [smsConsent, setSmsConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState('');
   const turnstileRef = useRef<HTMLDivElement>(null);
@@ -83,7 +88,17 @@ export const Qualifier: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const payload = { formData, answers, source: 'Website Qualifier', turnstileToken, website: '' };
+    // smsConsent is recorded per lead: A2P requires proof of consent for the specific
+    // number, so the answer has to travel with the submission, not just gate the UI.
+    const payload = {
+      formData,
+      answers,
+      source: 'Website Qualifier',
+      turnstileToken,
+      website: '',
+      smsConsent,
+      smsConsentAt: smsConsent ? new Date().toISOString() : null,
+    };
 
     try {
       // Fire GHL (CRM) and lead-notify (Sheets, email, Telegram, SMS) in parallel
@@ -242,8 +257,22 @@ export const Qualifier: React.FC = () => {
                     {/* Honeypot — invisible to humans, bots fill it */}
                     <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                     <div ref={turnstileRef} className="flex justify-center" />
+                    <label className="flex items-start gap-3 text-left px-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        name="smsConsent"
+                        checked={smsConsent}
+                        onChange={e => setSmsConsent(e.target.checked)}
+                        className="mt-[3px] h-4 w-4 shrink-0 accent-accent cursor-pointer"
+                      />
+                      <span className="text-[11px] font-mono text-text-secondary leading-relaxed">
+                        <span className="text-text-primary">Optional:</span> I agree to receive marketing and informational SMS messages from Premmisus Inc. at the number provided, including messages sent by an automated system. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help at any time. Consent is not a condition of purchase. You must be 18 or older.{' '}
+                        <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a> ·{' '}
+                        <a href="/terms" className="text-accent hover:underline">Terms &amp; Conditions</a>
+                      </span>
+                    </label>
                     <p className="text-[11px] font-mono text-text-secondary leading-relaxed text-center px-2">
-                      By submitting, you consent to receive commercial communications from Premmisus Inc. via email and SMS about your inquiry. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help at any time.{' '}
+                      By submitting, you agree we may contact you by phone or email about your inquiry.{' '}
                       <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a> ·{' '}
                       <a href="/terms" className="text-accent hover:underline">Terms</a>.
                     </p>

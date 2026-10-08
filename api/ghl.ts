@@ -9,7 +9,7 @@ export default async function handler(req: any, res: any) {
 
   const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/ugg4v4G1WJMtqGcWFUp5/webhook-trigger/9ARVupAhdYfb5uAaSgdZ';
 
-  const { formData, answers, source, turnstileToken } = req.body;
+  const { formData, answers, source, turnstileToken, smsConsent, smsConsentAt } = req.body;
 
   if (!formData?.name || !formData?.email) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -59,6 +59,12 @@ export default async function handler(req: any, res: any) {
         industry: answers?.['Which industry describes you best?'] ?? '',
         revenue: answers?.['What is your current monthly revenue?'] ?? '',
         bottleneck: answers?.['What is your primary bottleneck?'] ?? '',
+        // A2P 10DLC: consent has to be provable for the specific number, so it travels
+        // with the lead instead of living only in the browser. An unticked box is a real
+        // answer, not a missing one — it means call and email only, never SMS.
+        smsConsent: smsConsent === true,
+        smsConsentAt: smsConsent === true ? (smsConsentAt ?? new Date().toISOString()) : '',
+        smsConsentSource: smsConsent === true ? 'premmisus.ca/#qualify web form checkbox' : '',
       }),
     });
 

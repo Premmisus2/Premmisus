@@ -67,6 +67,16 @@ export const TermsPage: React.FC = () => {
                   help or STOP to opt out at any time. Consent to receive messages is not a condition of
                   purchasing any goods or services.
                 </p>
+                <p>
+                  <strong className="text-white">Age restriction.</strong> You must be at least 18 years
+                  of age to consent to receive SMS messages from Premmisus Inc. By opting in you confirm
+                  that you are 18 or older.
+                </p>
+                <p>
+                  <strong className="text-white">Carrier liability.</strong> Mobile carriers are not
+                  liable for delayed or undelivered messages. Message delivery is subject to the
+                  effective transmission of your mobile carrier and is outside our control.
+                </p>
               </Section>
 
               <Section title="4. Client Ownership of Deliverables">
