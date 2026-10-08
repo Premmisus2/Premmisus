@@ -105,9 +105,9 @@ export const PrivacyPage: React.FC = () => {
                   not liable for delayed or undelivered messages.
                 </p>
                 <p>
-                  No mobile information will be shared with third parties or affiliates for marketing or
-                  promotional purposes. Text messaging originator opt-in data and consent will not be
-                  shared with any third parties.
+                  No mobile information will be shared or sold to third parties, affiliates or lead
+                  generators for marketing or promotional purposes. Text messaging originator opt-in
+                  data and consent will not be shared or sold to any third parties or lead generators.
                 </p>
               </Section>
 

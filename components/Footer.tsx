@@ -53,6 +53,7 @@ export const Footer: React.FC = () => {
             <a href="mailto:contact@premmisus.com" className="hover:text-accent transition-colors">contact@premmisus.com</a>
             <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-accent transition-colors">Terms of Service</a>
+            <a href="/sms-opt-in" className="hover:text-accent transition-colors">SMS Updates</a>
           </div>
         </div>
       </div>
