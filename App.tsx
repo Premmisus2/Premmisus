@@ -14,6 +14,7 @@ import { Chatbot } from './components/Chatbot';
 import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { TermsPage } from './pages/TermsPage';
+import { SmsOptInPage } from './pages/SmsOptInPage';
 import { ContactPage } from './pages/ContactPage';
 import { AboutPage } from './pages/AboutPage';
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/services/:slug" element={<ServiceDetailPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/sms-opt-in" element={<SmsOptInPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
