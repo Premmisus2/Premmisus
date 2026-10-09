@@ -15,7 +15,7 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { formData, answers, source, smsConsent } = req.body;
+  const { formData, answers, source, smsConsentService, smsConsentMarketing } = req.body;
 
   if (!formData?.name || !formData?.email) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -45,8 +45,14 @@ export default async function handler(req: any, res: any) {
       },
       body: JSON.stringify({
         // Column L is SMS consent. Logged alongside GHL so the two records agree —
-        // "No" means this number may be called and emailed, never texted.
-        values: [[date, formData.name, email, phone, businessName, industry, revenue, bottleneck, leadSource, message, 'New', smsConsent === true ? 'Yes' : 'No']],
+        // "No" means this number may be called and emailed, never texted. Informational
+        // and marketing consent are separate checkboxes (Twilio 30913), so the cell
+        // records which tier(s) were granted.
+        values: [[date, formData.name, email, phone, businessName, industry, revenue, bottleneck, leadSource, message, 'New',
+          smsConsentService === true && smsConsentMarketing === true ? 'Service + Marketing'
+            : smsConsentService === true ? 'Service'
+            : smsConsentMarketing === true ? 'Marketing'
+            : 'No']],
       }),
     }),
 

@@ -39,7 +39,10 @@ export const Qualifier: React.FC = () => {
   // requires an explicit checkbox: passive "by submitting you agree" text does not qualify.
   // Leaving it unticked must never block the form — we still want the lead and the phone
   // number for calling, which carries its own consent.
-  const [smsConsent, setSmsConsent] = useState(false);
+  // Twilio 30913 (2026-10-08): marketing consent must be collected SEPARATELY from
+  // informational consent. Two independent boxes — never recombine them into one.
+  const [smsConsentService, setSmsConsentService] = useState(false);
+  const [smsConsentMarketing, setSmsConsentMarketing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState('');
   const turnstileRef = useRef<HTMLDivElement>(null);
@@ -88,16 +91,23 @@ export const Qualifier: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // smsConsent is recorded per lead: A2P requires proof of consent for the specific
+    // Consent is recorded per lead: A2P requires proof of consent for the specific
     // number, so the answer has to travel with the submission, not just gate the UI.
+    // Legacy combined smsConsent kept for downstream consumers; split fields are the
+    // source of truth for A2P proof.
+    const consentAt = new Date().toISOString();
     const payload = {
       formData,
       answers,
       source: 'Website Qualifier',
       turnstileToken,
       website: '',
-      smsConsent,
-      smsConsentAt: smsConsent ? new Date().toISOString() : null,
+      smsConsent: smsConsentService || smsConsentMarketing,
+      smsConsentAt: smsConsentService || smsConsentMarketing ? consentAt : null,
+      smsConsentService,
+      smsConsentServiceAt: smsConsentService ? consentAt : null,
+      smsConsentMarketing,
+      smsConsentMarketingAt: smsConsentMarketing ? consentAt : null,
     };
 
     try {
@@ -257,16 +267,33 @@ export const Qualifier: React.FC = () => {
                     {/* Honeypot — invisible to humans, bots fill it */}
                     <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                     <div ref={turnstileRef} className="flex justify-center" />
+                    {/* Two SEPARATE consent checkboxes — carrier requirement (Twilio 30913).
+                        Service text must stay identical to SmsOptInPage.tsx and to the
+                        Twilio A2P campaign MessageFlow, which quotes it verbatim. */}
                     <label className="flex items-start gap-3 text-left px-2 cursor-pointer">
                       <input
                         type="checkbox"
-                        name="smsConsent"
-                        checked={smsConsent}
-                        onChange={e => setSmsConsent(e.target.checked)}
+                        name="smsConsentService"
+                        checked={smsConsentService}
+                        onChange={e => setSmsConsentService(e.target.checked)}
                         className="mt-[3px] h-4 w-4 shrink-0 accent-accent cursor-pointer"
                       />
                       <span className="text-[11px] font-mono text-text-secondary leading-relaxed">
-                        <span className="text-text-primary">Optional:</span> I agree to receive marketing and informational SMS messages from Premmisus Inc. at the number provided, including messages sent by an automated system. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help at any time. Consent is not a condition of purchase. You must be 18 or older.{' '}
+                        <span className="text-text-primary">Optional:</span> I agree to receive informational SMS messages from Premmisus Inc. at the number provided: call recaps, meeting confirmations and reminders. Messages may be sent by an automated system. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help at any time. Consent is not a condition of purchase. You must be 18 or older.{' '}
+                        <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a> ·{' '}
+                        <a href="/terms" className="text-accent hover:underline">Terms &amp; Conditions</a>
+                      </span>
+                    </label>
+                    <label className="flex items-start gap-3 text-left px-2 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        name="smsConsentMarketing"
+                        checked={smsConsentMarketing}
+                        onChange={e => setSmsConsentMarketing(e.target.checked)}
+                        className="mt-[3px] h-4 w-4 shrink-0 accent-accent cursor-pointer"
+                      />
+                      <span className="text-[11px] font-mono text-text-secondary leading-relaxed">
+                        <span className="text-text-primary">Optional:</span> I agree to receive marketing SMS messages from Premmisus Inc. at the number provided: offers and updates about our services. Messages may be sent by an automated system. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help at any time. Consent is not a condition of purchase. You must be 18 or older.{' '}
                         <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a> ·{' '}
                         <a href="/terms" className="text-accent hover:underline">Terms &amp; Conditions</a>
                       </span>

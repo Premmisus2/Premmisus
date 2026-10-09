@@ -9,7 +9,12 @@ export default async function handler(req: any, res: any) {
 
   const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/ugg4v4G1WJMtqGcWFUp5/webhook-trigger/9ARVupAhdYfb5uAaSgdZ';
 
-  const { formData, answers, source, turnstileToken, smsConsent, smsConsentAt } = req.body;
+  const {
+    formData, answers, source, turnstileToken,
+    smsConsent, smsConsentAt,
+    smsConsentService, smsConsentServiceAt,
+    smsConsentMarketing, smsConsentMarketingAt,
+  } = req.body;
 
   if (!formData?.name || !formData?.email) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -62,9 +67,19 @@ export default async function handler(req: any, res: any) {
         // A2P 10DLC: consent has to be provable for the specific number, so it travels
         // with the lead instead of living only in the browser. An unticked box is a real
         // answer, not a missing one — it means call and email only, never SMS.
+        // Informational and marketing consent are SEPARATE checkboxes (Twilio 30913):
+        // the split fields are the proof; smsConsent stays as the combined legacy flag.
         smsConsent: smsConsent === true,
         smsConsentAt: smsConsent === true ? (smsConsentAt ?? new Date().toISOString()) : '',
-        smsConsentSource: smsConsent === true ? 'premmisus.ca/#qualify web form checkbox' : '',
+        smsConsentSource: smsConsent === true
+          ? (source === 'SMS Opt-In Page'
+              ? 'premmisus.ca/sms-opt-in web form checkbox'
+              : 'premmisus.ca/#qualify web form checkbox')
+          : '',
+        smsConsentService: smsConsentService === true,
+        smsConsentServiceAt: smsConsentService === true ? (smsConsentServiceAt ?? new Date().toISOString()) : '',
+        smsConsentMarketing: smsConsentMarketing === true,
+        smsConsentMarketingAt: smsConsentMarketing === true ? (smsConsentMarketingAt ?? new Date().toISOString()) : '',
       }),
     });
 
