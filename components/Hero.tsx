@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
           className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-accent/30 bg-accent/5 backdrop-blur-sm mb-8"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-accent animate-[pulse_1.5s_infinite]" />
-          <span className="text-xs font-mono text-accent tracking-widest uppercase">Canadian Trades Businesses Only</span>
+          <span className="text-xs font-mono text-accent tracking-widest uppercase">Built for Canadian Trades Businesses</span>
         </motion.div>
 
         <div className="flex flex-col items-center text-center mb-8 w-full">
@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-xl text-base md:text-lg text-text-secondary mb-10 font-mono leading-relaxed px-4"
         >
-          Meta ads, Google, SEO, CRM, and AI-powered nurturing — the full-stack growth system for <span className="text-white font-bold">Canadian trades businesses.</span>
+          Meta ads, Google, SEO, CRM, and AI-powered nurturing. The full-stack growth system for <span className="text-white font-bold">Canadian trades businesses.</span>
         </motion.p>
 
         <motion.div 

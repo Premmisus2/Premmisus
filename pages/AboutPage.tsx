@@ -33,7 +33,7 @@ export const AboutPage: React.FC = () => {
               <span className="text-accent">Engineered</span> to scale.
             </h1>
             <p className="font-mono text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl">
-              Premmisus is a Canadian growth agency built exclusively for Canadian trades and home service businesses. We don't serve everyone — we partner selectively with operators who are serious about scaling, and we engineer the full system to get them there.
+              Premmisus is a Canadian growth agency built for trades and home service businesses. We don't serve everyone. We partner selectively with operators who are serious about scaling, and we engineer the full system to get them there.
             </p>
           </div>
         </SectionWrapper>
@@ -61,10 +61,10 @@ export const AboutPage: React.FC = () => {
                 Premmisus was founded with a single observation: Canadian trades businesses were being underserved by generic marketing agencies that didn't understand the industry, couldn't track results, and charged premium rates for average outcomes.
               </p>
               <p>
-                We built a different model. One built around a specific type of client — the trades operator generating real revenue, with a real team, who understands that growth requires infrastructure, not just ads.
+                We built a different model. One built around a specific type of client: the trades operator generating real revenue, with a real team, who understands that growth requires infrastructure, not just ads.
               </p>
               <p>
-                Every service we offer — paid social acquisition, creative strategy, CRO funnels, retention systems, and AI automation — is engineered specifically for the economics of Canadian home service businesses. We know your close rates, your seasonality, your job values, and your margins. That knowledge is built into everything we build.
+                Every service we offer (paid social acquisition, creative strategy, CRO funnels, retention systems, and AI automation) is engineered specifically for the economics of Canadian home service businesses. We know your close rates, your seasonality, your job values, and your margins. That knowledge is built into everything we build.
               </p>
               <p>
                 We operate on a partnership model. We cap intake at 10 new clients per quarter to ensure every partner receives the attention and execution they deserve. If we take you on, we're fully invested in your growth.
@@ -86,7 +86,7 @@ export const AboutPage: React.FC = () => {
               <Pillar
                 number="01"
                 title="Selective Partnerships"
-                body="We don't accept every client. We run a qualification process to ensure we're the right fit — and that you are too. This protects both parties and guarantees our attention is never diluted."
+                body="We don't accept every client. We run a qualification process to ensure we're the right fit, and that you are too. This protects both parties and guarantees our attention is never diluted."
               />
               <Pillar
                 number="02"
@@ -96,7 +96,7 @@ export const AboutPage: React.FC = () => {
               <Pillar
                 number="03"
                 title="Niche Depth"
-                body="We operate exclusively in Canadian trades and home services. That focus means faster creative, better targeting, and benchmarks built on real industry data — not guesswork."
+                body="We specialize in Canadian trades and home services. That focus means faster creative, better targeting, and benchmarks built on real industry data, not guesswork."
               />
             </div>
           </div>

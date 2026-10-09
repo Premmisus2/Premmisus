@@ -69,7 +69,7 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Breadcrumb — only shown on service pages, sits directly below nav row */}
+      {/* Breadcrumb: only shown on service pages, sits directly below nav row */}
       {isServicePage && (
         <div className="border-t border-white/5 bg-background/60 backdrop-blur-md py-2.5 px-6">
           <div className="max-w-5xl mx-auto">

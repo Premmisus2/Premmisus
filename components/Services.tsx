@@ -23,7 +23,7 @@ export const Services: React.FC = () => {
 
         <div className="flex flex-col gap-3">
 
-          {/* Top row — 3 portrait cards */}
+          {/* Top row: 3 portrait cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {topRow.map((service) => {
               const isPrimary = service.id === '01';
@@ -84,7 +84,7 @@ export const Services: React.FC = () => {
             })}
           </div>
 
-          {/* Bottom row — 2 landscape cards */}
+          {/* Bottom row: 2 landscape cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {bottomRow.map((service, idx) => (
               <SectionWrapper key={service.id} delay={idx * 0.1}>

@@ -78,7 +78,7 @@ export const AnimatedLogos: React.FC = () => {
         WebkitMaskImage: 'linear-gradient(90deg, transparent, black 12%, black 88%, transparent)',
       }}
     >
-      {/* Two identical copies of the logo list — when the first set scrolls out the second snaps in perfectly */}
+      {/* Two identical copies of the logo list: when the first set scrolls out the second snaps in perfectly */}
       <div style={{ display: 'flex', width: 'max-content', animation: 'logo-marquee 38s linear infinite' }}>
         {[...logos, ...logos].map((logo, i) => (
           <div

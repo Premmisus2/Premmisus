@@ -24,7 +24,7 @@ export const TermsPage: React.FC = () => {
               Terms of Service
             </h1>
             <p className="font-mono text-sm text-text-secondary">
-              Effective Date: {new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}
+              Effective Date: October 9, 2026
             </p>
           </div>
 
@@ -57,14 +57,18 @@ export const TermsPage: React.FC = () => {
 
               <Section title="3. Communications and Consent">
                 <p>
-                  By submitting a form on this website or otherwise providing your contact details to us,
-                  you consent to be contacted by Premmisus by phone, email, and SMS regarding your inquiry
-                  and our services, in accordance with our{' '}
-                  <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a>.
+                  By submitting a form on this website, you agree that Premmisus may contact you by phone or
+                  email about your inquiry, in accordance with our{' '}
+                  <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a>. Submitting a
+                  form does not sign you up for text messages. We send text messages (SMS) only if you tick
+                  the optional SMS checkbox on our forms, which covers informational messages only: call
+                  recaps, meeting confirmations and reminders.
                 </p>
                 <p>
-                  For SMS: message frequency varies, and message and data rates may apply. Reply HELP for
-                  help or STOP to opt out at any time. Consent to receive messages is not a condition of
+                  For SMS: message frequency varies, and message and data rates may apply. Reply{' '}
+                  <strong className="text-white">HELP</strong> for help or{' '}
+                  <strong className="text-white">STOP</strong> to opt out at any time. Consent to receive
+                  messages is not a condition of
                   purchasing any goods or services.
                 </p>
                 <p>
@@ -134,7 +138,7 @@ export const TermsPage: React.FC = () => {
                 <p>
                   <strong className="text-white">Premmisus Inc.</strong><br />
                   700 Osgoode Dr, London, ON N6E 2G2, Canada<br />
-                  <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">contact@premmisus.com</a>
+                  <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>
                 </p>
               </Section>
 

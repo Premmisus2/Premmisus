@@ -10,7 +10,7 @@ interface FAQItem {
 const faqItems: FAQItem[] = [
   {
     question: "I get all my work from referrals. Why would I need this?",
-    answer: "Referrals are great — but they're unpredictable. 70% of homeowners search Google before asking a neighbour. We build the system that catches the ones who don't know you yet, so referrals become the bonus, not the lifeline."
+    answer: "Referrals are great, but they're unpredictable. 70% of homeowners search Google before asking a neighbour. We build the system that catches the ones who don't know you yet, so referrals become the bonus, not the lifeline."
   },
   {
     question: "I've been burned by a marketing agency before.",
@@ -22,19 +22,19 @@ const faqItems: FAQItem[] = [
   },
   {
     question: "How long until I see results?",
-    answer: "Most clients see their first qualified leads within 2–3 weeks of launch. Full pipeline momentum typically hits around the 60-day mark as the system learns and optimizes."
+    answer: "Most clients see their first qualified leads within 2 to 3 weeks of launch. Full pipeline momentum typically hits around the 60-day mark as the system learns and optimizes."
   },
   {
     question: "What makes you different from other agencies?",
-    answer: "We specialize in Canadian trades — plumbing, roofing, cleaning, landscaping, renovation. That's where our systems are sharpest and our results are strongest. Every ad template, every follow-up sequence, every automation is built with your industry in mind."
+    answer: "We specialize in Canadian trades: plumbing, roofing, cleaning, landscaping, renovation. That's where our systems are sharpest and our results are strongest. Every ad template, every follow-up sequence, every automation is built with your industry in mind."
   },
   {
     question: "Do I need to be tech-savvy?",
-    answer: "Not at all. We handle everything — the tech, the ads, the follow-up automation. You just answer the phone when it rings."
+    answer: "Not at all. We handle everything: the tech, the ads, the follow-up automation. You just answer the phone when it rings."
   },
   {
     question: "What if it doesn't work?",
-    answer: "We're performance-based. If we don't deliver results, you don't pay. We're that confident in what we build — because we've seen it work across every trades niche we've touched."
+    answer: "We're performance-based. If we don't deliver results, you don't pay. We're that confident in what we build, because we've seen it work across every trades niche we've touched."
   },
 ];
 
@@ -48,7 +48,7 @@ const timeline: TimelineStep[] = [
   {
     month: "Month 1",
     title: "Foundation",
-    description: "Website, CRM, ad accounts, tracking — we build the infrastructure from scratch so every dollar is measurable from day one."
+    description: "Website, CRM, ad accounts, tracking. We build the infrastructure from scratch so every dollar is measurable from day one."
   },
   {
     month: "Month 2",

@@ -133,7 +133,7 @@ export const ServiceDetailPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Who It's For — full width */}
+      {/* Who It's For: full width */}
       <section className="py-8 px-6">
         <div className="max-w-5xl mx-auto">
           <motion.div

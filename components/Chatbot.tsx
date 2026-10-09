@@ -12,7 +12,7 @@ export const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hey. I\'m the Premmisus AI — ask me anything about our services, how we work, or whether your business qualifies.',
+      content: 'Hey. I\'m the Premmisus AI. Ask me anything about our services, how we work, or whether your business qualifies.',
     },
   ]);
   const [input, setInput] = useState('');
@@ -51,7 +51,7 @@ export const Chatbot: React.FC = () => {
     } catch {
       setMessages(prev => [
         ...prev,
-        { role: 'assistant', content: 'Having trouble connecting right now. You can reach us directly at contact@premmisus.com — we\'ll get back to you fast.' },
+        { role: 'assistant', content: 'Having trouble connecting right now. You can reach us directly at elliott@premmisus.com and we\'ll get back to you fast.' },
       ]);
     } finally {
       setIsLoading(false);

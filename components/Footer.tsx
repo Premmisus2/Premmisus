@@ -50,10 +50,10 @@ export const Footer: React.FC = () => {
             <p>© {new Date().getFullYear()} Premmisus Inc. All rights reserved.</p>
             <p>700 Osgoode Dr, London, ON N6E 2G2, Canada</p>
             <a href="tel:+12494682807" className="hover:text-accent transition-colors">(249) 468-2807</a>
-            <a href="mailto:contact@premmisus.com" className="hover:text-accent transition-colors">contact@premmisus.com</a>
+            <a href="mailto:elliott@premmisus.com" className="hover:text-accent transition-colors">elliott@premmisus.com</a>
             <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-accent transition-colors">Terms of Service</a>
-            <a href="/sms-opt-in" className="hover:text-accent transition-colors">SMS Updates</a>
+            <a href="/sms-opt-in" className="hover:text-accent transition-colors">Text Messages</a>
           </div>
         </div>
       </div>

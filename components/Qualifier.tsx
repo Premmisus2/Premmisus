@@ -37,12 +37,13 @@ export const Qualifier: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', businessName: '' });
   // SMS consent is a separate, optional, unchecked-by-default opt-in. Carrier A2P review
   // requires an explicit checkbox: passive "by submitting you agree" text does not qualify.
-  // Leaving it unticked must never block the form — we still want the lead and the phone
+  // Leaving it unticked must never block the form. We still want the lead and the phone
   // number for calling, which carries its own consent.
-  // Twilio 30913 (2026-10-08): marketing consent must be collected SEPARATELY from
-  // informational consent. Two independent boxes — never recombine them into one.
+  // Twilio 30913 (rejected 2026-10-08/09): marketing consent must never share a control with
+  // informational consent. Since 2026-10-09 this form collects INFORMATIONAL consent only;
+  // the marketing checkbox was removed because no marketing campaign exists. Do not add one
+  // back without a separate approved marketing campaign and an update to Privacy and Terms.
   const [smsConsentService, setSmsConsentService] = useState(false);
-  const [smsConsentMarketing, setSmsConsentMarketing] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState('');
   const turnstileRef = useRef<HTMLDivElement>(null);
@@ -102,12 +103,14 @@ export const Qualifier: React.FC = () => {
       source: 'Website Qualifier',
       turnstileToken,
       website: '',
-      smsConsent: smsConsentService || smsConsentMarketing,
-      smsConsentAt: smsConsentService || smsConsentMarketing ? consentAt : null,
+      smsConsent: smsConsentService,
+      smsConsentAt: smsConsentService ? consentAt : null,
       smsConsentService,
       smsConsentServiceAt: smsConsentService ? consentAt : null,
-      smsConsentMarketing,
-      smsConsentMarketingAt: smsConsentMarketing ? consentAt : null,
+      // No marketing checkbox on this form (removed 2026-10-09); field kept so the payload
+      // shape downstream consumers expect does not change.
+      smsConsentMarketing: false,
+      smsConsentMarketingAt: null,
     };
 
     try {
@@ -142,7 +145,7 @@ export const Qualifier: React.FC = () => {
             </h3>
 
             <p className="text-text-secondary font-mono max-w-lg mx-auto mt-8">
-              We work exclusively with Canadian trades businesses. Answer a few quick questions and we'll be in touch.
+              We specialize in Canadian trades businesses. Answer a few quick questions and we'll be in touch.
             </p>
           </div>
 
@@ -264,12 +267,12 @@ export const Qualifier: React.FC = () => {
                         onChange={e => setFormData({...formData, businessName: e.target.value})}
                       />
                     </div>
-                    {/* Honeypot — invisible to humans, bots fill it */}
+                    {/* Honeypot: invisible to humans, bots fill it */}
                     <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                     <div ref={turnstileRef} className="flex justify-center" />
-                    {/* Two SEPARATE consent checkboxes — carrier requirement (Twilio 30913).
-                        Service text must stay identical to SmsOptInPage.tsx and to the
-                        Twilio A2P campaign MessageFlow, which quotes it verbatim. */}
+                    {/* Informational-only SMS consent checkbox (carrier requirement, Twilio 30913).
+                        Text must stay identical to SmsOptInPage.tsx and to the Twilio A2P
+                        campaign MessageFlow, which quotes it verbatim. */}
                     <label className="flex items-start gap-3 text-left px-2 cursor-pointer">
                       <input
                         type="checkbox"
@@ -284,22 +287,8 @@ export const Qualifier: React.FC = () => {
                         <a href="/terms" className="text-accent hover:underline">Terms &amp; Conditions</a>
                       </span>
                     </label>
-                    <label className="flex items-start gap-3 text-left px-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        name="smsConsentMarketing"
-                        checked={smsConsentMarketing}
-                        onChange={e => setSmsConsentMarketing(e.target.checked)}
-                        className="mt-[3px] h-4 w-4 shrink-0 accent-accent cursor-pointer"
-                      />
-                      <span className="text-[11px] font-mono text-text-secondary leading-relaxed">
-                        <span className="text-text-primary">Optional:</span> I agree to receive marketing SMS messages from Premmisus Inc. at the number provided: offers and updates about our services. Messages may be sent by an automated system. Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help at any time. Consent is not a condition of purchase. You must be 18 or older.{' '}
-                        <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a> ·{' '}
-                        <a href="/terms" className="text-accent hover:underline">Terms &amp; Conditions</a>
-                      </span>
-                    </label>
                     <p className="text-[11px] font-mono text-text-secondary leading-relaxed text-center px-2">
-                      By submitting, you agree we may contact you by phone or email about your inquiry.{' '}
+                      By submitting, you agree we may contact you by phone or email about your inquiry. Submitting does not sign you up for text messages.{' '}
                       <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a> ·{' '}
                       <a href="/terms" className="text-accent hover:underline">Terms</a>.
                     </p>

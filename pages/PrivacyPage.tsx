@@ -24,7 +24,7 @@ export const PrivacyPage: React.FC = () => {
               Privacy Policy
             </h1>
             <p className="font-mono text-sm text-text-secondary">
-              Effective Date: {new Date().toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}
+              Effective Date: October 9, 2026
             </p>
           </div>
 
@@ -45,7 +45,7 @@ export const PrivacyPage: React.FC = () => {
                 </p>
                 <p>
                   For privacy-related inquiries, contact us at:{' '}
-                  <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">contact@premmisus.com</a>
+                  <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>
                 </p>
               </Section>
 
@@ -90,14 +90,23 @@ export const PrivacyPage: React.FC = () => {
 
               <Section title="5. Your Consent (CASL)">
                 <p>
-                  By submitting our qualification form, you provide express consent to receive commercial electronic
-                  messages (email, SMS) from Premmisus related to our services. This consent is obtained at the
-                  point of form submission via an explicit acknowledgment.
+                  Submitting a form on this website lets us reply to your inquiry by phone or email. It does
+                  not sign you up for text messages.
+                </p>
+                <p>
+                  We send text messages (SMS) only to people who tick the optional SMS checkbox on our forms.
+                  The checkbox is unchecked by default and is not required to submit a form or to buy anything
+                  from us. It covers informational messages only: call recaps, meeting confirmations and
+                  reminders.
+                </p>
+                <p>
+                  Email: if you send us an inquiry, we may email you about it and about our services for up to
+                  six months afterwards, as Canada's anti-spam law (CASL) allows.
                 </p>
                 <p>
                   You may withdraw your consent and unsubscribe from communications at any time by replying
-                  "STOP" to any SMS, clicking "Unsubscribe" in any email, or contacting us directly at{' '}
-                  <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">contact@premmisus.com</a>.
+                  "STOP" to any SMS, replying "unsubscribe" to any email, or contacting us directly at{' '}
+                  <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>.
                 </p>
                 <p>
                   <strong className="text-white">SMS terms.</strong> Message frequency varies. Message and
@@ -130,7 +139,7 @@ export const PrivacyPage: React.FC = () => {
                 </ul>
                 <p>
                   To exercise any of these rights, contact us at{' '}
-                  <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">contact@premmisus.com</a>.
+                  <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>.
                   We will respond within 30 days.
                 </p>
               </Section>
@@ -159,7 +168,7 @@ export const PrivacyPage: React.FC = () => {
                 <p>
                   <strong className="text-white">Premmisus Inc.</strong><br />
                   700 Osgoode Dr, London, ON N6E 2G2, Canada<br />
-                  <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">contact@premmisus.com</a>
+                  <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>
                 </p>
               </Section>
 
