@@ -24,7 +24,7 @@ export const PrivacyPage: React.FC = () => {
               Privacy Policy
             </h1>
             <p className="font-mono text-sm text-text-secondary">
-              Effective Date: October 9, 2026
+              Effective Date: October 22, 2026
             </p>
           </div>
 
@@ -94,8 +94,8 @@ export const PrivacyPage: React.FC = () => {
                   not sign you up for text messages.
                 </p>
                 <p>
-                  We send text messages (SMS) only to people who tick the optional SMS checkbox on our forms.
-                  The checkbox is unchecked by default and is not required to submit a form or to buy anything
+                  If you contact us through this website, we text you (SMS) only if you tick the optional SMS
+                  checkbox on our forms. The checkbox is unchecked by default and is not required to submit a form or to buy anything
                   from us. It covers informational messages only: call recaps, meeting confirmations and
                   reminders.
                 </p>

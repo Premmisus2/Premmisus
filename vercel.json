@@ -1,5 +1,8 @@
 {
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    { "source": "/text", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }
   ]
 }

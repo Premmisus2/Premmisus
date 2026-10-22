@@ -24,7 +24,7 @@ export const TermsPage: React.FC = () => {
               Terms of Service
             </h1>
             <p className="font-mono text-sm text-text-secondary">
-              Effective Date: October 9, 2026
+              Effective Date: October 22, 2026
             </p>
           </div>
 
@@ -60,9 +60,9 @@ export const TermsPage: React.FC = () => {
                   By submitting a form on this website, you agree that Premmisus may contact you by phone or
                   email about your inquiry, in accordance with our{' '}
                   <a href="/privacy" className="text-accent hover:underline">Privacy Policy</a>. Submitting a
-                  form does not sign you up for text messages. We send text messages (SMS) only if you tick
-                  the optional SMS checkbox on our forms, which covers informational messages only: call
-                  recaps, meeting confirmations and reminders.
+                  form does not sign you up for text messages. If you contact us through this website, we
+                  text you (SMS) only if you tick the optional SMS checkbox on our forms, which covers
+                  informational messages only: call recaps, meeting confirmations and reminders.
                 </p>
                 <p>
                   For SMS: message frequency varies, and message and data rates may apply. Reply{' '}

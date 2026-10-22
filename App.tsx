@@ -18,6 +18,7 @@ import { ClientAgreementPage } from './pages/ClientAgreementPage';
 import { SmsOptInPage } from './pages/SmsOptInPage';
 import { ContactPage } from './pages/ContactPage';
 import { AboutPage } from './pages/AboutPage';
+import { TextInfoPage } from './pages/TextInfoPage';
 
 function HomePage() {
   const location = useLocation();
@@ -62,6 +63,7 @@ function App() {
         <Route path="/sms-opt-in" element={<SmsOptInPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/text" element={<TextInfoPage />} />
       </Routes>
     </BrowserRouter>
   );
