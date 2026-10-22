@@ -167,7 +167,7 @@ export const PrivacyPage: React.FC = () => {
                 </p>
                 <p>
                   <strong className="text-white">Premmisus Inc.</strong><br />
-                  700 Osgoode Dr, London, ON N6E 2G2, Canada<br />
+                  700 Osgoode Dr, London, ON N6E 2H1, Canada<br />
                   <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>
                 </p>
               </Section>

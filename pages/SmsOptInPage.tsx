@@ -178,7 +178,7 @@ export const SmsOptInPage: React.FC = () => {
           </div>
 
           <p className="mt-8 font-mono text-[11px] text-text-secondary text-center leading-relaxed">
-            Premmisus Inc. · 700 Osgoode Dr, London, ON N6E 2G2, Canada<br />
+            Premmisus Inc. · 700 Osgoode Dr, London, ON N6E 2H1, Canada<br />
             <a href="tel:+12494682807" className="text-accent hover:underline">(249) 468-2807</a> ·{' '}
             <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>
           </p>
