@@ -101,8 +101,8 @@ export const PrivacyPage: React.FC = () => {
                   not sign you up for text messages.
                 </p>
                 <p>
-                  We send text messages (SMS) only to people who tick the optional SMS checkbox on our forms.
-                  The checkbox is unchecked by default and is not required to submit a form or to buy anything
+                  If you contact us through this website, we text you (SMS) only if you tick the optional SMS
+                  checkbox on our forms. The checkbox is unchecked by default and is not required to submit a form or to buy anything
                   from us. It covers informational messages only: call recaps, meeting confirmations and
                   reminders.
                 </p>
@@ -174,7 +174,7 @@ export const PrivacyPage: React.FC = () => {
                 </p>
                 <p>
                   <strong className="text-white">Premmisus Inc.</strong><br />
-                  700 Osgoode Dr, London, ON N6E 2G2, Canada<br />
+                  700 Osgoode Dr, London, ON N6E 2H1, Canada<br />
                   <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>
                 </p>
               </Section>
