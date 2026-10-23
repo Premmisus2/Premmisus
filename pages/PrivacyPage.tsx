@@ -24,7 +24,7 @@ export const PrivacyPage: React.FC = () => {
               Privacy Policy
             </h1>
             <p className="font-mono text-sm text-text-secondary">
-              Effective Date: October 9, 2026
+              Effective Date: October 23, 2026
             </p>
           </div>
 
@@ -76,11 +76,17 @@ export const PrivacyPage: React.FC = () => {
 
               <Section title="4. Third-Party Services">
                 <p>
-                  Your form submission data is processed and stored using{' '}
-                  <strong className="text-white">GoHighLevel (LeadConnector)</strong>, our CRM platform.
-                  GoHighLevel processes data on our behalf under a data processing agreement. Their privacy policy
-                  is available at{' '}
-                  <span className="text-accent">gohighlevel.com</span>.
+                  When you submit a form, your details are stored in our own sales system so our team can
+                  follow up with you. That system runs on <strong className="text-white">Supabase</strong> (database
+                  hosting). Our team is alerted through <strong className="text-white">Telegram</strong>, and{' '}
+                  <strong className="text-white">Cloudflare Turnstile</strong> checks that the submission comes from
+                  a person rather than a bot. If you agree to text messages, they are sent through{' '}
+                  <strong className="text-white">Twilio</strong>. This website is hosted on{' '}
+                  <strong className="text-white">Vercel</strong>.
+                </p>
+                <p>
+                  These providers process your information on our behalf and only to provide these services. Some
+                  of them may store or process it outside Canada, including in the United States.
                 </p>
                 <p>
                   We may also use standard analytics tools (such as Google Analytics) to understand website
