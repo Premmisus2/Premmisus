@@ -1,8 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { SectionWrapper } from './SectionWrapper';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Loader2 } from 'lucide-react';
-import '../types/turnstile.d.ts';
+import {
+  useTurnstile, newRequestId, submitEnquiry, consentTextFrom, enquiryErrorMessage, turnstileWaitMessage, CONSENT_VERSION,
+} from '../lib/enquiry';
 
 interface Question {
   id: number;
@@ -45,27 +47,12 @@ export const Qualifier: React.FC = () => {
   // back without a separate approved marketing campaign and an update to Privacy and Terms.
   const [smsConsentService, setSmsConsentService] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState('');
+  const [error, setError] = useState('');
   const turnstileRef = useRef<HTMLDivElement>(null);
-  const turnstileWidgetId = useRef<string | null>(null);
-
-  useEffect(() => {
-    if (currentStep === questions.length && turnstileRef.current && window.turnstile && !turnstileWidgetId.current) {
-      turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
-        sitekey: '0x4AAAAAACwEfcixkS53YLBM',
-        callback: (token: string) => setTurnstileToken(token),
-        'expired-callback': () => setTurnstileToken(''),
-        theme: 'dark',
-        size: 'flexible',
-      });
-    }
-    return () => {
-      if (turnstileWidgetId.current && window.turnstile) {
-        window.turnstile.remove(turnstileWidgetId.current);
-        turnstileWidgetId.current = null;
-      }
-    };
-  }, [currentStep]);
+  // The widget mounts with the contact step, so it renders when that step opens.
+  const turnstile = useTurnstile(turnstileRef, currentStep === questions.length);
+  const requestId = useRef(newRequestId());
+  const consentLabelRef = useRef<HTMLLabelElement>(null);
 
   const handleOptionClick = (option: string) => {
     if (currentStep === 0 && option === 'Other') {
@@ -88,50 +75,30 @@ export const Qualifier: React.FC = () => {
     setCurrentStep(prev => prev + 1);
   };
 
+  // Lands in the Sales Portal (Canadian floor, Inbox, Telegram). The thank-you
+  // screen shows only when that worked (2026-10-23); before, it showed regardless.
+  // Consent travels with the submission: proof is needed for the specific number.
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    if (!turnstile.token) { setError(turnstileWaitMessage(turnstile.status)); return; }
     setIsSubmitting(true);
-
-    // Consent is recorded per lead: A2P requires proof of consent for the specific
-    // number, so the answer has to travel with the submission, not just gate the UI.
-    // Legacy combined smsConsent kept for downstream consumers; split fields are the
-    // source of truth for A2P proof.
-    const consentAt = new Date().toISOString();
-    const payload = {
-      formData,
+    const result = await submitEnquiry({
+      requestId: requestId.current,
+      form: 'qualifier',
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      businessName: formData.businessName,
       answers,
-      source: 'Website Qualifier',
-      turnstileToken,
-      website: '',
-      smsConsent: smsConsentService,
-      smsConsentAt: smsConsentService ? consentAt : null,
-      smsConsentService,
-      smsConsentServiceAt: smsConsentService ? consentAt : null,
-      // No marketing checkbox on this form (removed 2026-10-09); field kept so the payload
-      // shape downstream consumers expect does not change.
-      smsConsentMarketing: false,
-      smsConsentMarketingAt: null,
-    };
-
-    try {
-      // Fire GHL (CRM) and lead-notify (Sheets, email, Telegram, SMS) in parallel
-      const [ghlRes] = await Promise.all([
-        fetch('/api/ghl', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }),
-        fetch('/api/lead-notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(err => console.error('Lead notify error:', err)),
-      ]);
-
-      if (!ghlRes.ok) {
-        const errData = await ghlRes.json().catch(() => ({}));
-        console.error('GHL submission failed:', ghlRes.status, errData);
-      }
-
-      setIsQualified(true);
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setIsQualified(true);
-    } finally {
-      setIsSubmitting(false);
-    }
+      // No marketing checkbox on this form (removed 2026-10-09).
+      consent: { service: smsConsentService, marketing: false, text: consentTextFrom(consentLabelRef.current), version: CONSENT_VERSION },
+      turnstileToken: turnstile.token,
+    });
+    setIsSubmitting(false);
+    if (result.ok) { setIsQualified(true); return; }
+    setError(enquiryErrorMessage(result.error));
+    turnstile.reset();
   };
 
   return (
@@ -267,13 +234,11 @@ export const Qualifier: React.FC = () => {
                         onChange={e => setFormData({...formData, businessName: e.target.value})}
                       />
                     </div>
-                    {/* Honeypot: invisible to humans, bots fill it */}
-                    <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                     <div ref={turnstileRef} className="flex justify-center" />
                     {/* Informational-only SMS consent checkbox (carrier requirement, Twilio 30913).
                         Text must stay identical to SmsOptInPage.tsx and to the Twilio A2P
                         campaign MessageFlow, which quotes it verbatim. */}
-                    <label className="flex items-start gap-3 text-left px-2 cursor-pointer">
+                    <label ref={consentLabelRef} className="flex items-start gap-3 text-left px-2 cursor-pointer">
                       <input
                         type="checkbox"
                         name="smsConsentService"
@@ -299,6 +264,9 @@ export const Qualifier: React.FC = () => {
                     >
                       {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Get My Protocol'}
                     </button>
+                    {error && (
+                      <p role="alert" className="text-[12px] font-mono text-red-400 leading-relaxed text-center">{error}</p>
+                    )}
                   </form>
                 </motion.div>
               ) : (

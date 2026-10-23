@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, Loader2 } from 'lucide-react';
-import '../types/turnstile.d.ts';
+import { useTurnstile, newRequestId, submitEnquiry, enquiryErrorMessage, turnstileWaitMessage, CONSENT_VERSION } from '../lib/enquiry';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { SectionWrapper } from '../components/SectionWrapper';
@@ -10,57 +10,31 @@ export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState('');
+  const [error, setError] = useState('');
   const turnstileRef = useRef<HTMLDivElement>(null);
-  const turnstileWidgetId = useRef<string | null>(null);
+  const turnstile = useTurnstile(turnstileRef);
+  const requestId = useRef(newRequestId());
 
-  useEffect(() => {
-    if (turnstileRef.current && window.turnstile && !turnstileWidgetId.current) {
-      turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
-        sitekey: '0x4AAAAAACwEfcixkS53YLBM',
-        callback: (token: string) => setTurnstileToken(token),
-        'expired-callback': () => setTurnstileToken(''),
-        theme: 'dark',
-        size: 'flexible',
-      });
-    }
-    return () => {
-      if (turnstileWidgetId.current && window.turnstile) {
-        window.turnstile.remove(turnstileWidgetId.current);
-        turnstileWidgetId.current = null;
-      }
-    };
-  }, []);
-
+  // Lands in the Sales Portal (Canadian floor, Inbox, Telegram). Success shows
+  // only when that worked (2026-10-23). No texting box here: call or email only.
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    if (!turnstile.token) { setError(turnstileWaitMessage(turnstile.status)); return; }
     setIsSubmitting(true);
-
-    const payload = {
-      formData: { name: formData.name, email: formData.email },
-      answers: { message: formData.message },
-      source: 'Website Contact Form',
-      turnstileToken,
-      website: '',
-    };
-
-    try {
-      // Fire GHL (CRM) and lead-notify (Sheets, email, Telegram, SMS) in parallel
-      const [ghlRes] = await Promise.all([
-        fetch('/api/ghl', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }),
-        fetch('/api/lead-notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(err => console.error('Lead notify error:', err)),
-      ]);
-
-      if (!ghlRes.ok) {
-        const errData = await ghlRes.json().catch(() => ({}));
-        console.error('GHL submission failed:', ghlRes.status, errData);
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-    } finally {
-      setIsSubmitting(false);
-      setSubmitted(true);
-    }
+    const result = await submitEnquiry({
+      requestId: requestId.current,
+      form: 'contact',
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+      consent: { service: false, marketing: false, version: CONSENT_VERSION },
+      turnstileToken: turnstile.token,
+    });
+    setIsSubmitting(false);
+    if (result.ok) { setSubmitted(true); return; }
+    setError(enquiryErrorMessage(result.error));
+    turnstile.reset();
   };
 
   return (
@@ -130,8 +104,6 @@ export const ContactPage: React.FC = () => {
                       value={formData.message}
                       onChange={e => setFormData({ ...formData, message: e.target.value })}
                     />
-                    {/* Honeypot: invisible to humans, bots fill it */}
-                    <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                     <div ref={turnstileRef} className="flex justify-center" />
                     <button
                       type="submit"
@@ -140,6 +112,9 @@ export const ContactPage: React.FC = () => {
                     >
                       {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Send Message'}
                     </button>
+                    {error && (
+                      <p role="alert" className="text-[12px] font-mono text-red-400 leading-relaxed text-center">{error}</p>
+                    )}
                   </motion.form>
                 ) : (
                   <motion.div

@@ -10,11 +10,17 @@
 // unticked, OPTIONAL consent checkbox carrying every required disclosure. It is a real,
 // working form that posts to the same pipeline as the Qualifier, not a decoy for
 // reviewers. Submitting without ticking the box is valid and means call/email only.
+//
+// Since 2026-10-23 it posts to /api/enquiry, which lands the lead in the Sales Portal
+// (Canadian floor, Inbox, the portal's Telegram). "Got it" shows only when that worked.
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Loader2, CheckCircle2 } from 'lucide-react';
+import {
+  useTurnstile, newRequestId, submitEnquiry, consentTextFrom, enquiryErrorMessage, turnstileWaitMessage, CONSENT_VERSION,
+} from '../lib/enquiry';
 
 // Window.turnstile is already declared in types/turnstile.d.ts. Do not redeclare it.
 
@@ -28,56 +34,32 @@ export const SmsOptInPage: React.FC = () => {
   const [smsConsentService, setSmsConsentService] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [done, setDone] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState('');
+  const [error, setError] = useState('');
   const turnstileRef = useRef<HTMLDivElement>(null);
-  const widgetId = useRef<string | null>(null);
-
-  useEffect(() => {
-    if (turnstileRef.current && window.turnstile && !widgetId.current) {
-      widgetId.current = window.turnstile.render(turnstileRef.current, {
-        sitekey: '0x4AAAAAACwEfcixkS53YLBM',
-        callback: (token: string) => setTurnstileToken(token),
-        'expired-callback': () => setTurnstileToken(''),
-        theme: 'dark',
-        size: 'flexible',
-      });
-    }
-  }, []);
+  const turnstile = useTurnstile(turnstileRef);
+  const requestId = useRef(newRequestId());
+  const consentLabelRef = useRef<HTMLLabelElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    if (!turnstile.token) { setError(turnstileWaitMessage(turnstile.status)); return; }
     setIsSubmitting(true);
-
-    const consentAt = new Date().toISOString();
-    const payload = {
-      formData,
-      answers: {},
-      source: 'SMS Opt-In Page',
-      turnstileToken,
-      website: '',
-      // Legacy combined flag kept so downstream consumers (GHL webhook mapping, Sheets
-      // column L) keep working; the split fields are the source of truth for A2P proof.
-      smsConsent: smsConsentService,
-      smsConsentAt: smsConsentService ? consentAt : null,
-      smsConsentService,
-      smsConsentServiceAt: smsConsentService ? consentAt : null,
-      // No marketing checkbox on this form (removed 2026-10-09); field kept so the payload
-      // shape downstream consumers expect does not change.
-      smsConsentMarketing: false,
-      smsConsentMarketingAt: null,
-    };
-
-    try {
-      await Promise.all([
-        fetch('/api/ghl', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }),
-        fetch('/api/lead-notify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) }).catch(err => console.error('Lead notify error:', err)),
-      ]);
-    } catch (error) {
-      console.error('SMS opt-in submission error:', error);
-    } finally {
-      setDone(true);
-      setIsSubmitting(false);
-    }
+    const result = await submitEnquiry({
+      requestId: requestId.current,
+      form: 'sms-opt-in',
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      businessName: formData.businessName,
+      // No marketing checkbox on this form (removed 2026-10-09).
+      consent: { service: smsConsentService, marketing: false, text: consentTextFrom(consentLabelRef.current), version: CONSENT_VERSION },
+      turnstileToken: turnstile.token,
+    });
+    setIsSubmitting(false);
+    if (result.ok) { setDone(true); return; }
+    setError(enquiryErrorMessage(result.error));
+    turnstile.reset();
   };
 
   const inputClass = 'w-full bg-black/40 border border-white/10 rounded-lg px-4 py-3 font-mono text-sm text-white placeholder:text-zinc-600 focus:border-accent focus:outline-none transition-colors';
@@ -137,13 +119,10 @@ export const SmsOptInPage: React.FC = () => {
                     onChange={e => setFormData({ ...formData, businessName: e.target.value })}
                   />
 
-                  {/* Honeypot */}
-                  <input type="text" name="website" className="absolute -left-[9999px]" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-
                   {/* Informational-only SMS consent checkbox (carrier requirement, Twilio 30913).
                       The text below is quoted VERBATIM in the Twilio A2P campaign MessageFlow;
                       changing it means updating the campaign filing. */}
-                  <label className="flex items-start gap-3 cursor-pointer pt-2">
+                  <label ref={consentLabelRef} className="flex items-start gap-3 cursor-pointer pt-2">
                     <input
                       type="checkbox"
                       name="smsConsentService"
@@ -167,6 +146,10 @@ export const SmsOptInPage: React.FC = () => {
                   >
                     {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Submit'}
                   </button>
+
+                  {error && (
+                    <p role="alert" className="text-[12px] font-mono text-red-400 leading-relaxed text-center">{error}</p>
+                  )}
 
                   <p className="text-[11px] font-mono text-text-secondary leading-relaxed text-center pt-1">
                     Ticking the SMS box is optional. You can submit this form without it and we will
