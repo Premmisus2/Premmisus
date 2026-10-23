@@ -85,8 +85,9 @@ export const PrivacyPage: React.FC = () => {
                   <strong className="text-white">Vercel</strong>.
                 </p>
                 <p>
-                  These providers process your information on our behalf and only to provide these services. Some
-                  of them may store or process it outside Canada, including in the United States.
+                  These providers may store or process your information outside Canada, including in the United
+                  States. While it is there, it may be accessed by the courts, law enforcement and national
+                  security authorities of that country.
                 </p>
                 <p>
                   We may also use standard analytics tools (such as Google Analytics) to understand website
