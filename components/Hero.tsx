@@ -5,9 +5,9 @@ import { AnimatedLogos } from './AnimatedLogos';
 
 export const Hero: React.FC = () => {
   const pairs = [
-    { first: "ADS. LEADS.", second: "AUTOMATION." },
+    { first: "CALLS. LEADS.", second: "AUTOMATION." },
     { first: "SYSTEMS.", second: "RESULTS." },
-    { first: "GROWTH.", second: "GUARANTEED." },
+    { first: "GROWTH.", second: "ON REPEAT." },
   ];
 
   const [index, setIndex] = useState(0);
@@ -35,7 +35,9 @@ export const Hero: React.FC = () => {
         </motion.div>
 
         <div className="flex flex-col items-center text-center mb-8 w-full">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-sans font-medium tracking-tighter leading-[1.1] uppercase w-full">
+          {/* Sized to the screen so the longest rotating line ("CALLS. LEADS. AUTOMATION.") stays on one row;
+              at fixed sizes it wrapped and the clipped box hid "LEADS." on phone and desktop. */}
+          <h1 className="text-[clamp(1.2rem,6.2vw,5.5rem)] font-sans font-medium tracking-tighter leading-[1.1] uppercase w-full">
             <span className="text-white block mb-2">WE ENGINEER</span>
             
             <div className="relative h-[1.2em] overflow-hidden w-full flex justify-center"> 
@@ -46,7 +48,7 @@ export const Hero: React.FC = () => {
                   animate={{ y: "0%", opacity: 1 }}
                   exit={{ y: "-100%", opacity: 0 }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-row justify-center gap-2 md:gap-5 w-full"
+                  className="flex flex-row justify-center gap-2 md:gap-5 w-full whitespace-nowrap"
                 >
                   {/* First Word - White */}
                   <span className="text-white">
@@ -68,7 +70,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-xl text-base md:text-lg text-text-secondary mb-10 font-mono leading-relaxed px-4"
         >
-          Meta ads, Google, SEO, CRM, and AI-powered nurturing. The full-stack growth system for <span className="text-white font-bold">Canadian trades businesses.</span>
+          Miss a call, they get a text back within a minute. Get a lead, it's on your phone the moment it lands. Every customer asked for a review. Past customers brought back. <span className="text-white font-bold">Website included.</span>
         </motion.p>
 
         <motion.div 

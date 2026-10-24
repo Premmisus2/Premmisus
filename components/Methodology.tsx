@@ -1,31 +1,31 @@
 import React from 'react';
-import { Database, Workflow, ShieldCheck, TrendingUp } from 'lucide-react';
+import { PhoneMissed, MessageSquareText, Star, Repeat } from 'lucide-react';
 import { SectionWrapper } from './SectionWrapper';
 
 const steps = [
   {
     id: "01",
-    title: 'The Infrastructure',
-    description: 'We fix the foundation first. High-converting landing pages built specifically for high-ticket quotes.',
-    icon: Database,
+    title: 'The Text-Back',
+    description: 'Miss a call on your business line and the caller gets a text back within a minute, in your business name, before they ring the next company on Google.',
+    icon: PhoneMissed,
   },
   {
     id: "02",
-    title: 'The Capture',
-    description: 'Qualified lead magnets (Calculators, Price Guides) to filter tire-kickers and capture intent early.',
-    icon: ShieldCheck,
+    title: 'The Follow-Up',
+    description: "Every form fill hits your phone by text and email the moment it lands. The customer gets a text back in your name, so they know you've got it.",
+    icon: MessageSquareText,
   },
   {
     id: "03",
-    title: 'The Nurture',
-    description: 'Automated SMS & Email flows warm up leads before you call, doubling contact rates.',
-    icon: Workflow,
+    title: 'The Review Engine',
+    description: "After every job, your customer gets a text with your Google review link. If they don't tap it, it comes again once a week, up to four times. Every customer asked, no screening.",
+    icon: Star,
   },
   {
     id: "04",
-    title: 'The Scale',
-    description: 'Scale vertically with stable CPA. Server-side tracking feeds high-quality data back to ad platforms.',
-    icon: TrendingUp,
+    title: 'The Comeback',
+    description: 'Every two to three months for a year, past customers get a short text with an offer their friends and family can use too.',
+    icon: Repeat,
   },
 ];
 
@@ -39,13 +39,13 @@ export const Methodology: React.FC = () => {
           <div className="lg:w-5/12">
             <div className="lg:sticky lg:top-32">
                 <SectionWrapper>
-                  <h2 className="text-xs md:text-sm font-mono text-accent uppercase tracking-widest mb-4">Proprietary Method</h2>
+                  <h2 className="text-xs md:text-sm font-mono text-accent uppercase tracking-widest mb-4">The System</h2>
                   <h3 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
                     The Canadian Trades <br/>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-white">Lead Engine.</span>
                   </h3>
                   <p className="text-text-secondary font-mono leading-relaxed mb-8 text-base md:text-lg">
-                    A 4-stage engineered approach to pilot your growth. Simple, scalable logic.
+                    Four systems running behind your website, day and night. Set up once for your trade, then working while you're on the job.
                   </p>
                   <div className="hidden lg:flex items-center gap-2 text-accent font-mono text-xs uppercase tracking-wider opacity-80">
                     <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
@@ -97,7 +97,7 @@ export const Methodology: React.FC = () => {
 
                            <div className="mt-6 md:mt-8 flex items-center gap-2">
                                 <span className="text-[10px] font-mono text-accent/50 uppercase tracking-widest group-hover:text-accent transition-colors">
-                                  System Phase {step.id}
+                                  System {step.id}
                                 </span>
                                 <div className="h-px flex-1 bg-white/5 group-hover:bg-accent/20 transition-colors" />
                            </div>
