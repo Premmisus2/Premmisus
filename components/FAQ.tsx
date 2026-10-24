@@ -93,7 +93,7 @@ export const FAQ: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-32 relative overflow-hidden">
+    <section id="faq" className="py-32 relative overflow-hidden">
       <SectionWrapper>
         <div className="max-w-4xl mx-auto px-6">
           {/* FAQ Section */}

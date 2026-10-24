@@ -6,9 +6,9 @@ import { Logo } from './Logo';
 
 const navItems: NavItem[] = [
   { label: 'The System', href: '/#system' },
+  { label: 'Services', href: '/#services' },
   { label: 'Comparison', href: '/#comparison' },
-  { label: 'Data', href: '/#metrics' },
-  { label: 'Results', href: '/#services' },
+  { label: 'FAQ', href: '/#faq' },
 ];
 
 export const Navbar: React.FC = () => {

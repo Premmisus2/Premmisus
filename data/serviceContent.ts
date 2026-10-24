@@ -25,14 +25,13 @@ export const serviceDetails: ServiceDetail[] = [
     title: 'Your Website',
     tagline: 'Included. Built around your trade and the towns you serve, with every form sending the lead straight to your phone.',
     overview:
-      'Every Premmisus system comes with a website. It says clearly what you do and which towns you serve, it works properly on a phone, and every form on it sends the lead straight to your phone. You own your domain, your content and your customer data. When you want something small changed, like your text, photos, hours or services, you tell us and we change it.',
+      'Every Premmisus system comes with a website. It says clearly what you do and which towns you serve, it works properly on a phone, and every form on it sends the lead straight to your phone. When you want something small changed, like your text, photos, hours or services, you tell us and we change it.',
     included: [
       'Built around your services and the towns you serve',
       'Made for phones, with tap-to-call',
       'Every form sends the lead straight to your phone',
       'Hosted and looked after by us',
       'Small changes to text, photos, hours and services when you ask',
-      'Your domain, your content and your customer data stay yours',
     ],
     howItWorks: [
       {

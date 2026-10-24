@@ -5,7 +5,6 @@ import { Hero } from './components/Hero';
 import { Methodology } from './components/Methodology';
 import { Services } from './components/Services';
 import { Comparison } from './components/Comparison';
-import { Metrics } from './components/Metrics';
 import { FAQ } from './components/FAQ';
 import { Testimonials } from './components/Testimonials';
 import { Qualifier } from './components/Qualifier';
@@ -40,7 +39,6 @@ function HomePage() {
         <Methodology />
         <Services />
         <Comparison />
-        <Metrics />
         <FAQ />
         <Testimonials />
         <Qualifier />
