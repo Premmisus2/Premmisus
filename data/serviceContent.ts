@@ -62,7 +62,7 @@ export const serviceDetails: ServiceDetail[] = [
       'When you want more work than word of mouth brings, we set up and run your ads on Google, Facebook and Instagram. Every ad sends people to your own website, where every form goes straight to your phone. You decide the budget, and you can change it whenever you like.',
     included: [
       'Google Search ads for people already looking for your service',
-      'Facebook and Instagram ads in the towns you serve',
+      "Facebook and Instagram ads that follow up with people who've already visited your site",
       'Ads written for your trade',
       'Every ad pointed at your own website',
       'A budget you decide, changed when you say',
@@ -96,7 +96,7 @@ export const serviceDetails: ServiceDetail[] = [
     included: [
       'Google Business Profile set up: services, area, hours, photos and categories',
       'A page on your site for each town you serve',
-      'Your name, address and phone number the same everywhere',
+      'Your name, address and phone number the same on your site and your Google profile',
       'Your Google review link ready for the review engine',
       'Profile changes made carefully, one at a time',
     ],
