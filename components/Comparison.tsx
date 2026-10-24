@@ -2,31 +2,25 @@ import React from 'react';
 import { SectionWrapper } from './SectionWrapper';
 import { X, Check } from 'lucide-react';
 
+// Only rows proven on both sides (checked live 2026-10-24): Scorpion's FAQ says it "typically
+// requires a 12-month contract" and that "a project manager will collaborate" on the build; Hook
+// Agency splits its websites over 12 months. Ours: month to month in the Client Agreement. No
+// ownership row: Scorpion and Hook both hand over the site, and we hand back content and data.
 const comparisonData = [
   {
-    feature: "Focus",
-    others: "Generalist",
-    us: "Specialized",
+    feature: "Contract",
+    others: "A 12-month contract",
+    us: "Month to month. Cancel any time by email",
   },
   {
-    feature: "Metrics",
-    others: "Vanity (Clicks)",
-    us: "Revenue (Cost/Lead)",
+    feature: "What you pay for",
+    others: "Ads, clicks and reports",
+    us: "Four systems that catch the work you already get",
   },
   {
-    feature: "Reporting",
-    others: "Monthly PDFs",
-    us: "Live Dashboard",
-  },
-  {
-    feature: "Creative",
-    others: "Stock Photos",
-    us: "High-Fidelity Video",
-  },
-  {
-    feature: "Structure",
-    others: "Hourly/Retainer",
-    us: "Performance-Based",
+    feature: "Who builds it",
+    others: "A project manager and a team",
+    us: "The founder, Elliott Cuthbert",
   },
 ];
 
@@ -39,7 +33,7 @@ export const Comparison: React.FC = () => {
             <h2 className="text-xs md:text-sm font-mono text-accent uppercase tracking-widest mb-4">The Gap</h2>
             <h3 className="text-3xl md:text-5xl font-sans font-bold text-white">
               Stop burning cash with <br />
-              <span className="text-gray-500 line-through decoration-red-500">traditional agencies.</span>
+              <span className="text-gray-500 line-through decoration-red-500">lock-in agencies.</span>
             </h3>
           </div>
 
@@ -48,7 +42,7 @@ export const Comparison: React.FC = () => {
             {/* Header - Hidden on small screens */}
             <div className="hidden md:grid grid-cols-3 border-b border-white/10 bg-white/5">
               <div className="p-6 font-mono text-xs text-text-secondary uppercase tracking-wider">Feature</div>
-              <div className="p-6 font-mono text-xs text-red-400 uppercase tracking-wider border-l border-white/10">Traditional Agency</div>
+              <div className="p-6 font-mono text-xs text-red-400 uppercase tracking-wider border-l border-white/10">Lock-in Agency</div>
               <div className="p-6 font-mono text-xs text-accent uppercase tracking-wider border-l border-white/10 bg-accent/5">Premmisus</div>
             </div>
 
