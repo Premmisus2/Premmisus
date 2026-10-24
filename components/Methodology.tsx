@@ -6,7 +6,7 @@ const steps = [
   {
     id: "01",
     title: 'The Text-Back',
-    description: 'Miss a call on your business line and the caller gets a text back within a minute, in your business name, before they ring the next company on Google.',
+    description: 'Miss a call on your business line and the caller gets a text back automatically, in your business name, before they ring the next company on Google.',
     icon: PhoneMissed,
   },
   {

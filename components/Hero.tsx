@@ -70,7 +70,7 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-xl text-base md:text-lg text-text-secondary mb-10 font-mono leading-relaxed px-4"
         >
-          Miss a call, they get a text back within a minute. Get a lead, it's on your phone the moment it lands. Every customer asked for a review. Past customers brought back. <span className="text-white font-bold">Website included.</span>
+          Miss a call, they get a text back automatically. Get a lead, it's on your phone the moment it lands. Every customer asked for a review. Past customers brought back. <span className="text-white font-bold">Website included.</span>
         </motion.p>
 
         <motion.div 
