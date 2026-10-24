@@ -165,12 +165,12 @@ export const ServiceDetailPage: React.FC = () => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-accent/10 blur-[80px] rounded-full pointer-events-none" />
 
             <div className="relative z-10 text-center px-8 py-16 md:py-20">
-              <h2 className="text-xs font-mono text-accent uppercase tracking-widest mb-4">Ready to Deploy</h2>
+              <h2 className="text-xs font-mono text-accent uppercase tracking-widest mb-4">Next Step</h2>
               <h3 className="text-2xl md:text-4xl font-sans font-bold text-white mb-4 tracking-tighter">
-                Let's build your system.
+                Let's build yours.
               </h3>
               <p className="font-mono text-text-secondary max-w-lg mx-auto mb-10 text-sm">
-                Your competitors are already running systems like this. See how we can build yours.
+                A short call about how you work, and we'll show you what it would look like for your business.
               </p>
               <a
                 href="/#qualify"

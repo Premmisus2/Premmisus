@@ -14,9 +14,9 @@ export const Services: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <SectionWrapper>
           <div className="mb-16">
-            <h2 className="text-sm font-mono text-accent uppercase tracking-widest mb-4">Our Protocol</h2>
+            <h2 className="text-sm font-mono text-accent uppercase tracking-widest mb-4">What Else We Build</h2>
             <h3 className="text-4xl md:text-5xl font-sans font-bold text-white max-w-2xl">
-              A holistic ecosystem for aggressive scaling.
+              Your website comes with it. The rest is there when you're ready.
             </h3>
           </div>
         </SectionWrapper>
@@ -73,7 +73,7 @@ export const Services: React.FC = () => {
 
                       <div className="flex items-center gap-2 mt-auto">
                         <span className={`text-[10px] font-mono uppercase tracking-widest transition-colors ${isPrimary ? 'text-accent' : 'text-accent/50 group-hover:text-accent'}`}>
-                          Service {service.id}
+                          {service.id === '01' ? 'Included' : 'Add-on'}
                         </span>
                         <div className={`h-px flex-1 transition-colors ${isPrimary ? 'bg-accent/20' : 'bg-white/5 group-hover:bg-accent/20'}`} />
                       </div>
@@ -104,11 +104,11 @@ export const Services: React.FC = () => {
                     <ArrowUpRight className="w-4 h-4" />
                   </div>
 
-                  <div className="flex flex-row items-center gap-6 relative z-10">
+                  <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:gap-6 relative z-10">
                     <span className="text-5xl md:text-6xl font-sans font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-white/20 group-hover:from-accent group-hover:to-accent/20 transition-all duration-500 shrink-0">
                       {service.id}
                     </span>
-                    <div className="h-12 w-px bg-white/10 group-hover:bg-accent/20 transition-colors shrink-0" />
+                    <div className="hidden md:block h-12 w-px bg-white/10 group-hover:bg-accent/20 transition-colors shrink-0" />
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         <div className="p-2 rounded-lg bg-white/5 border border-white/5 text-accent group-hover:bg-accent/10 group-hover:border-accent/20 transition-colors">
@@ -126,7 +126,7 @@ export const Services: React.FC = () => {
 
                   <div className="flex items-center gap-2 mt-6 relative z-10">
                     <span className="text-[10px] font-mono text-accent/50 uppercase tracking-widest group-hover:text-accent transition-colors">
-                      Service {service.id}
+                      {service.id === '01' ? 'Included' : 'Add-on'}
                     </span>
                     <div className="h-px flex-1 bg-white/5 group-hover:bg-accent/20 transition-colors" />
                   </div>

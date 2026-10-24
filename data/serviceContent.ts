@@ -1,4 +1,9 @@
-import { Target, BarChart2, Zap, Layers, Bot } from 'lucide-react';
+import { Globe, Megaphone, MapPin, Headset, Calculator } from 'lucide-react';
+
+// What else we build, beyond the four systems (components/Methodology.tsx). Co-authored with
+// Elliott 2026-10-24. Every sentence here is something already built and shown working, or plain
+// mechanism; no results, no numbers, no speeds we have not timed. The website is included in the
+// package; the rest are add-ons. Old slugs (paid-social and the rest) redirect in vercel.json.
 
 export interface ServiceDetail {
   slug: string;
@@ -15,188 +20,170 @@ export interface ServiceDetail {
 
 export const serviceDetails: ServiceDetail[] = [
   {
-    slug: 'paid-social',
+    slug: 'website',
     id: '01',
-    title: 'Paid Social Acquisition',
-    tagline: 'Meta is our weapon. We know how to use it.',
+    title: 'Your Website',
+    tagline: 'Included. Built around your trade and the towns you serve, with every form sending the lead straight to your phone.',
     overview:
-      'Most agencies run ads. We engineer acquisition systems. Our paid social practice is built for Canadian trades and industrial businesses: companies that need qualified leads, not clicks. Meta (Facebook & Instagram) is our core weapon. We also deploy Google Ads for intent-based search and service ad capture. Every campaign is built around your cost per lead, your close rate, and your actual revenue. Not impressions. Not reach. Revenue.',
+      'Every Premmisus system comes with a website. It says clearly what you do and which towns you serve, it works properly on a phone, and every form on it sends the lead straight to your phone. You own your domain, your content and your customer data. When you want something small changed, like your text, photos, hours or services, you tell us and we change it.',
     included: [
-      'Meta (Facebook & Instagram) campaign architecture and full management',
-      'Google Ads: Search and Service Ads for high-intent capture',
-      'Audience research and targeting built for blue-collar markets',
-      'Multi-angle creative testing to find what converts fastest',
-      'Real-time CPA monitoring and budget optimization',
-      'Reporting tied to revenue, with zero vanity metrics',
+      'Built around your services and the towns you serve',
+      'Made for phones, with tap-to-call',
+      'Every form sends the lead straight to your phone',
+      'Hosted and looked after by us',
+      'Small changes to text, photos, hours and services when you ask',
+      'Your domain, your content and your customer data stay yours',
     ],
     howItWorks: [
       {
-        step: 'Audit & Profile',
-        description:
-          'We start by auditing your current presence and defining your ideal lead profile. Who is your best customer? What does it cost you to acquire them today? We need to know the baseline before we can break it.',
+        step: 'A short call',
+        description: 'We go over your services, the towns you work in and how customers reach you today.',
       },
       {
-        step: 'Build the System',
-        description:
-          'We build the campaign infrastructure from scratch: targeting, copy, creative direction, and conversion tracking. Nothing goes live until the measurement is airtight.',
+        step: 'We build it',
+        description: 'We write the site around your trade and build it. You check it and tell us what to change before anything goes live.',
       },
       {
-        step: 'Test, Optimize, Scale',
-        description:
-          'We monitor performance weekly, cut what loses, scale what wins, and report on the numbers that actually move your business forward.',
+        step: 'It goes live',
+        description: 'We put it on your domain, connect the forms and send a test lead so you see it arrive on your phone.',
       },
     ],
-    techStack: ['Meta Ads Manager', 'Google Ads', 'Server-Side GA4', 'GoHighLevel', 'Offline Conversion Tracking'],
+    techStack: [],
     whoItsFor:
-      'Plumbing, roofing, cleaning, landscaping, renovation, and trades businesses across Canada that need a predictable, trackable flow of qualified leads, not guesswork.',
-    icon: Target,
+      'Trades and home service businesses across Canada with no website, or with one that sits there and brings in nothing.',
+    icon: Globe,
   },
   {
-    slug: 'creative-strategy',
+    slug: 'google-meta-ads',
     id: '02',
-    title: 'Creative Strategy',
-    tagline: 'Data decides the design. We build what converts.',
+    title: 'Google & Meta Ads',
+    tagline: 'When you want more work than word of mouth brings, we set up and run your ads on Google, Facebook and Instagram.',
     overview:
-      'Ad creative is the single biggest performance lever in paid social. We do not guess what works. We test systematically. Our creative strategy is built around your industry, your audience, and what makes a blue-collar buyer take action. We develop the full creative direction, coordinate with vetted production partners for video, and handle everything from brief to live asset. You focus on running your business. We focus on building the creative that fills your pipeline.',
+      'When you want more work than word of mouth brings, we set up and run your ads on Google, Facebook and Instagram. Every ad sends people to your own website, where every form goes straight to your phone. You decide the budget, and you can change it whenever you like.',
     included: [
-      'Creative brief development and full campaign direction',
-      'Static ad design built for scroll-stopping performance',
-      'Video ad coordination with trusted production partners',
-      'Multi-angle testing: headline, hook, offer, and format variations',
-      'Performance analysis: winners scaled, losers cut fast',
-      'Industry-specific messaging crafted for trades and industrial audiences',
+      'Google Search ads for people already looking for your service',
+      'Facebook and Instagram ads in the towns you serve',
+      'Ads written for your trade',
+      'Every ad pointed at your own website',
+      'A budget you decide, changed when you say',
     ],
     howItWorks: [
       {
-        step: 'Define the Angle',
-        description:
-          'We start with your offer and your audience. What does your ideal customer care about? What objection do they have before they pick up the phone? We build creative angles around the answers.',
+        step: 'Plan',
+        description: 'We agree the towns, the services to push and the monthly budget.',
       },
       {
-        step: 'Direct & Produce',
-        description:
-          'We develop the creative briefs and direct production or design, whether that is static graphics, video, or both. Every asset is built to a conversion objective, not an aesthetic one.',
+        step: 'Build',
+        description: 'We write the ads and set up the campaigns on Google and Meta.',
       },
       {
-        step: 'Test & Feed the Loop',
-        description:
-          'We run structured tests and feed winning data directly back into the next creative sprint. Over time, your creative library compounds, and so does your performance.',
+        step: 'Run',
+        description: "We watch them, switch off what isn't working and tell you what we changed.",
       },
     ],
-    techStack: ['Meta Creative Hub', 'Canva Pro', 'Adobe Suite (via partners)', 'Proprietary Testing Frameworks'],
+    techStack: [],
     whoItsFor:
-      'Businesses already running paid social, or ready to start, who want creative that converts, not just creative that looks good.',
-    icon: Zap,
+      'Businesses that already have a website and follow-up in place, and want more calls coming in.',
+    icon: Megaphone,
   },
   {
-    slug: 'cro-funnel',
+    slug: 'google-profile-local-seo',
     id: '03',
-    title: 'CRO & Funnel Optimization',
-    tagline: 'Traffic is worthless without conversion architecture.',
+    title: 'Google Profile & Local SEO',
+    tagline: 'Your Google Business Profile set up right, plus a page on your site for every town you serve.',
     overview:
-      'You can spend thousands on ads and lose all of it on a landing page that was never built to convert. We build and optimize the full conversion path, from the first ad click to the submitted quote request. We construct landing pages from scratch using GoHighLevel, Google\'s web infrastructure, and modern AI-assisted tools, engineered specifically for high-ticket trades and industrial leads. We have built funnels for businesses across the sector, and we know exactly what makes a contractor or operations manager stop and fill out a form.',
+      'Your Google Business Profile is what people see when they search your name or your trade on Google. We set yours up right: your services, the area you cover, your hours, your photos and the right categories. Then we add a page on your site for each town you serve, written for that town.',
     included: [
-      'Landing page design and full build, from scratch',
-      'Conversion path mapping from ad click to qualified lead',
-      'Form design and lead qualification logic',
-      'A/B testing frameworks tied to revenue metrics',
-      'Page speed and mobile optimization',
-      'Full CRM and tracking stack integration',
+      'Google Business Profile set up: services, area, hours, photos and categories',
+      'A page on your site for each town you serve',
+      'Your name, address and phone number the same everywhere',
+      'Your Google review link ready for the review engine',
+      'Profile changes made carefully, one at a time',
     ],
     howItWorks: [
       {
-        step: 'Funnel Audit',
-        description:
-          'We map your current conversion path and find where leads are leaking. Most businesses are losing 60 to 80% of their traffic before a form is ever submitted.',
+        step: 'Check',
+        description: 'We look at your profile and your site and list what is missing.',
       },
       {
-        step: 'Build the Infrastructure',
-        description:
-          'We rebuild what needs rebuilding and build what does not exist. New landing pages, new forms, new qualification logic, all connected to your CRM and tracking from day one.',
+        step: 'Fix',
+        description: 'We set up the profile and build the town pages, making profile changes one at a time.',
       },
       {
-        step: 'Optimize Continuously',
-        description:
-          'We test, report on revenue per session, not just traffic, and keep improving. A 10% lift in conversion rate is worth more than doubling your ad spend.',
+        step: 'Keep it right',
+        description: 'When your hours, services or area change, you tell us and we update the profile.',
       },
     ],
-    techStack: ['GoHighLevel', 'Google Web Infrastructure', 'AI-Assisted Build Tools', 'Traditional Builders (as needed)', 'Server-Side GA4'],
+    techStack: [],
     whoItsFor:
-      'Any business running paid traffic that wants more qualified leads out of the same ad spend.',
-    icon: Layers,
+      'Businesses with a thin, unclaimed or out-of-date Google profile, and anyone who works across more than one town.',
+    icon: MapPin,
   },
   {
-    slug: 'retention-systems',
+    slug: 'ai-receptionist',
     id: '04',
-    title: 'Retention Systems',
-    tagline: 'The money is in the follow-up. We automate it.',
+    title: 'AI Receptionist',
+    tagline: "An AI voice that answers when you can't, day or night, takes the caller's details and sends them to you.",
     overview:
-      'Most businesses lose the majority of their leads simply by not following up fast enough, or at all. The average lead goes cold within minutes. We build the automated systems that follow up for you: email sequences, SMS flows, remarketing campaigns, and CRM pipelines that keep every lead warm until they are ready to buy. We set it up, we manage it, and we keep it running. You close the deals. We handle everything before the call.',
+      "An AI voice that answers your business line when you can't: on a job, after hours or on the weekend. It greets the caller in your business name, takes their name, number and what they need, and sends the details to you after the call. A call you couldn't take still leaves you with a lead to call back.",
     included: [
-      'CRM setup and full pipeline management (GoHighLevel)',
-      'Email marketing sequences and ongoing campaign management',
-      'SMS follow-up automation, triggered by lead behaviour',
-      'Remarketing campaign management across Meta and Google',
-      'Workflow automation via n8n and Zapier',
-      'Reporting through your preferred tools (Notion, Slack, Google Sheets, Excel), your call',
+      'Answers when you are busy, after hours and on weekends',
+      'Greets callers in your business name',
+      "Takes the caller's name, number and what they need",
+      'Sends you the details after every call',
+      'What it says, written with you',
+      'You test it yourself before it answers a customer',
     ],
     howItWorks: [
       {
-        step: 'Audit the Gap',
-        description:
-          'We review your current follow-up process. In most cases, leads are sitting in a spreadsheet with no automated touchpoint. We identify every gap and map the fix.',
+        step: 'Script',
+        description: 'We write what it says with you: your services, your area and what to ask.',
       },
       {
-        step: 'Build the Engine',
-        description:
-          'We build the CRM pipeline, automation flows, and email and SMS sequences. Everything is integrated. Your ads feed the CRM, the CRM triggers the automations, and the automations book the calls.',
+        step: 'Connect',
+        description: 'We connect it to your business line for the times you choose.',
       },
       {
-        step: 'Manage and Optimize',
-        description:
-          'We manage ongoing campaigns and optimize based on open rates, reply rates, and booked calls. You get a weekly report in whatever format works best for your team.',
+        step: 'Test',
+        description: 'You call it yourself and hear it before it answers a single customer.',
       },
     ],
-    techStack: ['GoHighLevel', 'n8n', 'Zapier', 'Google Sheets', 'Slack', 'Notion'],
+    techStack: [],
     whoItsFor:
-      'Businesses generating leads but not closing enough of them. The problem is almost always in the follow-up, and almost always fixable.',
-    icon: BarChart2,
+      'Owners who miss calls because they are on the tools, and businesses that get a lot of calls after hours.',
+    icon: Headset,
   },
   {
-    slug: 'ai-automation',
+    slug: 'instant-quotes',
     id: '05',
-    title: 'AI Automation',
-    tagline: 'Your competitors are still doing this manually.',
+    title: 'Instant Quotes',
+    tagline: 'Customers pick their job on your site and see a price range on the spot, before they ever call.',
     overview:
-      'We have built and deployed AI-powered automation systems that eliminate the manual work slowing your business down. From automated lead intake and intelligent follow-up to internal workflow automation, our AI systems run around the clock so your team does not have to. We use these same systems internally, which is how we take on more without sacrificing the quality of what we deliver. This is not a future offering. It is live, it is running, and it is available to you now.',
+      'Customers pick their job on your site, answer a couple of quick questions and see a price range on the spot. They know roughly what it will cost before they call, and when they send it, you get their details with the job already described.',
     included: [
-      'AI-powered lead intake, routing, and qualification',
-      'Automated follow-up sequences triggered by lead behaviour and intent signals',
-      'Internal workflow automation: reduce admin, increase throughput',
-      'CRM automation and intelligent pipeline management',
-      'Custom AI workflow builds using n8n and Zapier',
-      'Ongoing monitoring, refinement, and expansion as your business grows',
+      'A price calculator built from your own prices',
+      'Questions that fit your trade',
+      'A price range, not a fixed promise',
+      "The customer's answers sent to you with their details",
+      'Works on phones',
     ],
     howItWorks: [
       {
-        step: 'Workflow Audit',
-        description:
-          'We map your current operations and identify every manual, repetitive task that is costing your team time. Most businesses have 5 to 10 hours per week of work that can be fully automated.',
+        step: 'Your prices',
+        description: 'You give us your prices and what makes a job cost more or less.',
       },
       {
-        step: 'Build the AI Stack',
-        description:
-          'We build the automation systems and integrate them into your existing tools. Lead intake, CRM updates, follow-up sequences, internal notifications, all handled without human input.',
+        step: 'We build it',
+        description: 'We add the calculator to your site and connect it to your lead alerts.',
       },
       {
-        step: 'Scale the Automation',
-        description:
-          'We monitor what is running, fix what needs fixing, and continuously expand the automation footprint as your business grows. The system gets smarter the longer it runs.',
+        step: 'You test it',
+        description: 'You run your own quotes and check the numbers before it goes live.',
       },
     ],
-    techStack: ['n8n', 'Zapier', 'GoHighLevel AI', 'OpenAI APIs', 'Custom Automation Frameworks', 'Notion', 'Slack'],
+    techStack: [],
     whoItsFor:
-      'Growth-minded trades and industrial businesses that want to scale operations without proportionally scaling their headcount or their stress.',
-    icon: Bot,
+      'Trades with fairly set prices, like cleaning, window washing, pressure washing and lawn care. Not a fit for jobs that need a site visit to price.',
+    icon: Calculator,
   },
 ];
