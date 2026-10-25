@@ -1,15 +1,56 @@
 {
   "redirects": [
-    { "source": "/services/paid-social", "destination": "/services/google-meta-ads", "permanent": true },
-    { "source": "/services/creative-strategy", "destination": "/services/google-meta-ads", "permanent": true },
-    { "source": "/services/cro-funnel", "destination": "/services/website", "permanent": true },
-    { "source": "/services/retention-systems", "destination": "/#system", "permanent": true },
-    { "source": "/services/ai-automation", "destination": "/services/ai-receptionist", "permanent": true }
+    {
+      "source": "/services/paid-social",
+      "destination": "/services/google-meta-ads",
+      "permanent": true
+    },
+    {
+      "source": "/services/creative-strategy",
+      "destination": "/services/google-meta-ads",
+      "permanent": true
+    },
+    {
+      "source": "/services/cro-funnel",
+      "destination": "/services/website",
+      "permanent": true
+    },
+    {
+      "source": "/services/retention-systems",
+      "destination": "/#system",
+      "permanent": true
+    },
+    {
+      "source": "/services/ai-automation",
+      "destination": "/services/ai-receptionist",
+      "permanent": true
+    },
+    {
+      "source": "/pay/presence",
+      "destination": "https://buy.stripe.com/8x2aEY6FLdlMfRwcas8AE03",
+      "permanent": false
+    },
+    {
+      "source": "/pay/reputation",
+      "destination": "https://buy.stripe.com/8x2eVe0hn81s48Ocas8AE04",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
-    { "source": "/text", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }
+    {
+      "source": "/text",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
   ]
 }
