@@ -13,11 +13,6 @@ const reviews = [
     username: "Principle Property Care",
     body: "When I started, I had no team and no systems. Premmisus built my entire backend: CRM, follow-up automation, lead tracking. They acted as my marketing team and helped me grow from a one-man operation to a real business.",
   },
-  {
-    name: "Senay",
-    username: "Detailing Business & Academy",
-    body: "Premmisus helped us launch our detailing business and academy from the ground up. Website, branding, marketing systems, everything. Now I'm teaching others to build their own service businesses. That's the kind of impact they have.",
-  },
 ];
 
 interface ReviewCardProps {
