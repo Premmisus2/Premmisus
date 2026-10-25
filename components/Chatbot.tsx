@@ -12,7 +12,7 @@ export const Chatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hey. I\'m the Premmisus AI. Ask me anything about our services, how we work, or whether your business qualifies.',
+      content: 'Hey. I\'m the Premmisus assistant. Ask me about the four systems, how setup works, or whether it fits your business.',
     },
   ]);
   const [input, setInput] = useState('');
