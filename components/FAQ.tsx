@@ -7,58 +7,69 @@ interface FAQItem {
   answer: string;
 }
 
+// Co-authored with Elliott 2026-10-24. Every answer is checked against the Client Agreement
+// (pages/ClientAgreementPage.tsx) and the locked offer: no prices (the agreement sets them at
+// checkout or in a written quote), no results promised, no "performance-based".
 const faqItems: FAQItem[] = [
   {
     question: "I get all my work from referrals. Why would I need this?",
-    answer: "Referrals are great, but they're unpredictable. 70% of homeowners search Google before asking a neighbour. We build the system that catches the ones who don't know you yet, so referrals become the bonus, not the lifeline."
+    answer: "Referrals are great, and this doesn't replace them. It catches the work that slips past you: the call you couldn't answer, the form you saw too late, the review nobody asked for. The past-customer texts even carry an offer your customers can pass on to friends and family."
   },
   {
     question: "I've been burned by a marketing agency before.",
-    answer: "So have most of our clients. The difference: we only work with trades businesses, we show you exactly where every dollar goes in a live dashboard, and we're performance-based. If we don't deliver, you don't pay. No long-term contracts."
+    answer: "We don't sell you clicks or reports. We set up four systems that each do one job, you see each one working on your own phone before it goes live, and it's month to month. If it isn't working for you, you cancel by email."
   },
   {
     question: "How much does this cost?",
-    answer: "Our systems start at $1,599/month depending on scope. Every dollar is tracked to a cost-per-lead number so you know exactly what you're paying per job booked. We'll walk you through the math on a call."
+    answer: "It depends on which systems you want. It's a monthly price, month to month, and we'll give you the exact number on a short call."
   },
   {
-    question: "How long until I see results?",
-    answer: "Most clients see their first qualified leads within 2 to 3 weeks of launch. Full pipeline momentum typically hits around the 60-day mark as the system learns and optimizes."
+    question: "How long does it take to set up?",
+    answer: "Most setups are ready within about 14 days of your first payment and of us getting what we need from you: your logo, photos, services, hours and service area."
   },
   {
     question: "What makes you different from other agencies?",
-    answer: "We specialize in Canadian trades: plumbing, roofing, cleaning, landscaping, renovation. That's where our systems are sharpest and our results are strongest. Every ad template, every follow-up sequence, every automation is built with your industry in mind."
+    answer: "We set up systems that catch the work you already get, instead of selling you more ad spend. You see everything working before it goes live. And the founder builds it."
   },
   {
     question: "Do I need to be tech-savvy?",
-    answer: "Not at all. We handle everything: the tech, the ads, the follow-up automation. You just answer the phone when it rings."
+    answer: "Not at all. We set it up and run it for you. If you can read a text message, you're set."
   },
   {
-    question: "What if it doesn't work?",
-    answer: "We're performance-based. If we don't deliver results, you don't pay. We're that confident in what we build, because we've seen it work across every trades niche we've touched."
+    question: "What if it doesn't work for me?",
+    answer: "We don't promise results we can't back up. It's month to month, so if it isn't working for you, cancel by email and you won't be charged again."
+  },
+  {
+    question: "Will the texts go out in my business name?",
+    answer: "Yes. Every text identifies your business and how to reach you, and anyone can reply STOP to opt out. We only text people who have dealt with your business, the way Canada's anti-spam law (CASL) requires."
+  },
+  {
+    question: "Do you only work in London, Ontario?",
+    answer: "No. We work with businesses across Canada. The call and the setup all happen online."
   },
 ];
 
 interface TimelineStep {
-  month: string;
+  label: string;
   title: string;
   description: string;
 }
 
 const timeline: TimelineStep[] = [
   {
-    month: "Month 1",
-    title: "Foundation",
-    description: "Website, CRM, ad accounts, tracking. We build the infrastructure from scratch so every dollar is measurable from day one."
+    label: "Step 1",
+    title: "A short call",
+    description: "We talk through how calls and requests reach you today, and which systems you want."
   },
   {
-    month: "Month 2",
-    title: "Launch",
-    description: "Ads go live, leads start flowing, follow-up automation is active. You start getting calls and booked jobs."
+    label: "Step 2",
+    title: "Built in about 14 days",
+    description: "Built around your business, and you see every piece working on your own phone before a customer does."
   },
   {
-    month: "Month 3",
-    title: "Scale",
-    description: "Optimize what's working, increase budget on winners, compound results. This is where the system hits its stride."
+    label: "Step 3",
+    title: "It runs",
+    description: "It works in the background while you're on the job. When you want a message or a setting changed, you tell us and we change it."
   },
 ];
 
@@ -79,7 +90,7 @@ const AccordionItem: React.FC<{ item: FAQItem; isOpen: boolean; onClick: () => v
         />
       </button>
       <div
-        className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
       >
         <p className="px-5 md:px-6 pb-5 md:pb-6 font-mono text-sm text-text-secondary leading-relaxed">
           {item.answer}
@@ -129,9 +140,9 @@ export const FAQ: React.FC = () => {
                 key={index}
                 className="border border-white/10 bg-black/20 backdrop-blur-sm p-6 md:p-8 relative group hover:border-accent/30 transition-all duration-300"
               >
-                {/* Month label */}
+                {/* Step label */}
                 <span className="text-xs font-mono text-accent uppercase tracking-widest mb-3 block">
-                  {step.month}
+                  {step.label}
                 </span>
                 <h4 className="text-xl font-sans font-bold text-white mb-3">
                   {step.title}
