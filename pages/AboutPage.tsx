@@ -33,7 +33,7 @@ export const AboutPage: React.FC = () => {
               <span className="text-accent">Engineered</span> to scale.
             </h1>
             <p className="font-mono text-text-secondary text-sm md:text-base leading-relaxed max-w-2xl">
-              Premmisus is a Canadian growth agency built for trades and home service businesses. We don't serve everyone. We partner selectively with operators who are serious about scaling, and we engineer the full system to get them there.
+              Premmisus Inc. is a Canadian company based in London, Ontario. We set up the systems that catch the work trades and home service businesses already get: missed calls texted back, every lead sent to the owner, review requests after every job and past customers brought back, with the website that ties it together.
             </p>
           </div>
         </SectionWrapper>
@@ -43,10 +43,12 @@ export const AboutPage: React.FC = () => {
       <section className="py-16 border-t border-b border-white/5">
         <SectionWrapper>
           <div className="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12">
-            <Stat value="50+" label="Businesses assessed" />
-            <Stat value="6+" label="Active niches served" />
-            <Stat value="$48" label="Avg. cost per lead" />
-            <Stat value="3.2x" label="Avg. client ROAS" />
+            {/* Facts, not results (2026-10-25): the offer, the Client Agreement (about 14 days,
+                month to month) and who builds it today. The old figures were invented. */}
+            <Stat value="4" label="Systems, one setup" />
+            <Stat value="14" label="Days to set up, about" />
+            <Stat value="0" label="Long-term contracts" />
+            <Stat value="1" label="Founder who builds it" />
           </div>
         </SectionWrapper>
       </section>
@@ -55,19 +57,20 @@ export const AboutPage: React.FC = () => {
       <section className="py-24">
         <SectionWrapper>
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="text-xs font-mono text-accent uppercase tracking-widest mb-6">Our Story</h2>
+            <h2 className="text-xs font-mono text-accent uppercase tracking-widest mb-6">From the Founder</h2>
+            {/* Elliott's own words, dictated for premmisus.com on 2026-10-08 ("Elliott's final wording,
+                verbatim"). SHELF LIFE: "I stay closely involved" is true while Elliott builds every
+                client; whoever adds the first assistant rewrites this. */}
             <div className="space-y-5 font-mono text-sm text-text-secondary leading-relaxed">
               <p>
-                Premmisus was founded with a single observation: Canadian trades businesses were being underserved by generic marketing agencies that didn't understand the industry, couldn't track results, and charged premium rates for average outcomes.
+                I've been doing this for 3 years, going on 4, and what I'm striving to build is simple: a reliable software-as-a-service product for everyday business people like yourself.
               </p>
               <p>
-                We built a different model. One built around a specific type of client: the trades operator generating real revenue, with a real team, who understands that growth requires infrastructure, not just ads.
+                I stay closely involved in the communication and the building of the systems. Whatever level of quality you get from me at the start is what you'll get across the board: the delivery, the communication, and how problems get solved.
               </p>
+              <p className="text-white">Elliott Cuthbert, Founder</p>
               <p>
-                Every service we offer (paid social acquisition, creative strategy, CRO funnels, retention systems, and AI automation) is engineered specifically for the economics of Canadian home service businesses. We know your close rates, your seasonality, your job values, and your margins. That knowledge is built into everything we build.
-              </p>
-              <p>
-                We operate on a partnership model. We cap intake at 10 new clients per quarter to ensure every partner receives the attention and execution they deserve. If we take you on, we're fully invested in your growth.
+                Premmisus started in Germany and is now based in London, Ontario.
               </p>
             </div>
           </div>
@@ -85,18 +88,18 @@ export const AboutPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Pillar
                 number="01"
-                title="Selective Partnerships"
-                body="We don't accept every client. We run a qualification process to ensure we're the right fit, and that you are too. This protects both parties and guarantees our attention is never diluted."
+                title="You see it first"
+                body="Every system is set up for your business, and you see it working on your own phone before it reaches a customer."
               />
               <Pillar
                 number="02"
-                title="Full Transparency"
-                body="If we can't track it, we don't do it. Every campaign is measured with server-side GA4 and CRM integration so you know exactly which ad generated which lead and which job."
+                title="Month to month"
+                body="No long-term contract. If it isn't working for you, cancel by email and you won't be charged again."
               />
               <Pillar
                 number="03"
-                title="Niche Depth"
-                body="We specialize in Canadian trades and home services. That focus means faster creative, better targeting, and benchmarks built on real industry data, not guesswork."
+                title="Built for trades"
+                body="Cleaning, landscaping, plumbing, pressure washing, window washing, construction and handyman: businesses that miss calls because they're on the job."
               />
             </div>
           </div>
@@ -107,12 +110,12 @@ export const AboutPage: React.FC = () => {
       <section className="py-24 border-t border-white/5">
         <SectionWrapper>
           <div className="max-w-2xl mx-auto px-6 text-center">
-            <h2 className="text-xs font-mono text-accent uppercase tracking-widest mb-4">Ready to Apply?</h2>
+            <h2 className="text-xs font-mono text-accent uppercase tracking-widest mb-4">Next Step</h2>
             <h3 className="text-3xl md:text-4xl font-sans font-bold text-white mb-6">
-              See if you qualify.
+              Let's talk.
             </h3>
             <p className="font-mono text-sm text-text-secondary mb-10 max-w-md mx-auto">
-              We review every application and only move forward when we're confident we can deliver. Start the qualifier below.
+              A short call about how you work, and we'll show you what it would look like for your business.
             </p>
             <a
               href="/#qualify"
