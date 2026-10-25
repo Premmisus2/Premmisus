@@ -16,7 +16,7 @@ export const Footer: React.FC = () => {
               Ready to See What's <span className="text-accent">Possible</span>?
             </h2>
             <p className="text-text-secondary font-mono text-lg mb-8 max-w-md">
-              Full-stack lead systems engineered for Canadian trades businesses. Let's build yours.
+              Four systems that catch the work you already get, plus the website. Built for Canadian trades businesses. Let's build yours.
             </p>
             <Button href="#qualify" withArrow className="bg-accent text-black text-lg py-6 px-10 border-none hover:bg-white hover:text-black">
               Book a Free Strategy Call
@@ -27,9 +27,9 @@ export const Footer: React.FC = () => {
             <div>
               <h4 className="font-mono text-sm text-white font-bold uppercase mb-6">Socials</h4>
               <ul className="space-y-4 font-mono text-sm text-text-secondary">
-                <li><a href="https://instagram.com/premmisus" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Instagram</a></li>
-                <li><a href="https://linkedin.com/company/premmisus" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">LinkedIn</a></li>
-                <li><a href="https://twitter.com/premmisus" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Twitter</a></li>
+                {/* Same profiles as premmisus.com. X/Twitter removed 2026-10-25: x.com/premmisus is a 404. */}
+                <li><a href="https://www.instagram.com/premmisus/" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">Instagram</a></li>
+                <li><a href="https://www.linkedin.com/in/elliott-cuthbert-287538291" target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors">LinkedIn</a></li>
               </ul>
             </div>
             <div>
@@ -49,10 +49,11 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 font-mono text-xs text-zinc-600">
             <p>© {new Date().getFullYear()} Premmisus Inc. All rights reserved.</p>
             <p>700 Osgoode Dr, London, ON N6E 2H1, Canada</p>
-            <a href="tel:+12494682807" className="hover:text-accent transition-colors">(249) 468-2807</a>
+            <a href="tel:+12494682807" className="whitespace-nowrap hover:text-accent transition-colors">(249) 468-2807</a>
             <a href="mailto:elliott@premmisus.com" className="hover:text-accent transition-colors">elliott@premmisus.com</a>
             <a href="/privacy" className="hover:text-accent transition-colors">Privacy Policy</a>
             <a href="/terms" className="hover:text-accent transition-colors">Terms of Service</a>
+            <a href="/client-agreement" className="hover:text-accent transition-colors">Client Agreement</a>
             <a href="/sms-opt-in" className="hover:text-accent transition-colors">Text Messages</a>
           </div>
         </div>
