@@ -76,7 +76,7 @@ export function newRequestId(): string {
 
 export type EnquiryPayload = {
   requestId: string;
-  form: 'sms-opt-in' | 'contact' | 'qualifier';
+  form: 'sms-opt-in' | 'contact' | 'qualifier' | 'text';
   name: string;
   email?: string;
   phone?: string;

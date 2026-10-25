@@ -17,7 +17,7 @@ import { createHmac } from 'node:crypto';
 
 const SITE = 'premmisus.ca';
 const MAX_BODY_CHARS = 16_000;
-const FORMS = new Set(['sms-opt-in', 'contact', 'qualifier']);
+const FORMS = new Set(['sms-opt-in', 'contact', 'qualifier', 'text']);
 
 type Json = Record<string, unknown>;
 
