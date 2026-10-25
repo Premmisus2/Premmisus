@@ -9,26 +9,42 @@ import {
 interface Question {
   id: number;
   text: string;
+  /** Label for this answer in the enquiry message the rep reads (Inbox, lead note, Telegram). */
+  short: string;
   options: string[];
 }
 
+// Q1's wording is read verbatim by the Sales Portal (lib/web-enquiry.ts nicheFrom) to file the
+// lead's trade, and its options are the portal's own niche names (NICHE_LIST). Change neither
+// without changing the portal. Rewritten with Elliott 2026-10-25.
 const questions: Question[] = [
   {
     id: 1,
     text: "Which industry describes you best?",
-    options: ["Plumbing & Drain", "Roofing & Exterior", "Property Care / Cleaning", "Handyman & Renovation", "Landscaping", "Electrical", "Other"]
+    short: "Trade",
+    options: ["Cleaning", "Landscaping", "Plumbing", "Pressure Washing", "Window Washing", "Construction & Handyman", "Other"]
   },
   {
     id: 2,
-    text: "What is your current monthly revenue?",
-    options: ["Under $50k", "$50k - $150k", "$150k - $500k", "$500k+"]
+    text: "Do you have a website now?",
+    short: "Has a website",
+    options: ["Yes, and it brings in work", "Yes, but it doesn't bring in much", "No"]
   },
   {
     id: 3,
-    text: "What is your primary bottleneck?",
-    options: ["Not enough leads", "Poor lead quality", "Can't track ROI", "Need automated follow-up"]
+    text: "Where do jobs slip away?",
+    short: "Jobs slip away",
+    options: ["Calls I miss while I'm on a job", "New requests I'm slow to answer", "Not enough Google reviews", "Past customers who don't come back", "Not sure, I'd like to talk it through"]
   }
 ];
+
+/** The answers as one line for the rep. The portal shows only the message, never raw answers. */
+function answersMessage(answers: Record<string, string>): string {
+  return questions
+    .filter(q => answers[q.text])
+    .map(q => `${q.short}: ${answers[q.text]}`)
+    .join(' | ');
+}
 
 export const Qualifier: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -70,7 +86,8 @@ export const Qualifier: React.FC = () => {
   const handleOtherSubmit = () => {
     if (!otherIndustry.trim()) return;
     const currentQuestion = questions[currentStep].text;
-    setAnswers(prev => ({ ...prev, [currentQuestion]: `Other: ${otherIndustry}` }));
+    // What they type becomes the lead's trade in the portal, as the portal's own "Other" rule wants.
+    setAnswers(prev => ({ ...prev, [currentQuestion]: otherIndustry.trim() }));
     setShowOtherInput(false);
     setCurrentStep(prev => prev + 1);
   };
@@ -90,6 +107,7 @@ export const Qualifier: React.FC = () => {
       email: formData.email,
       phone: formData.phone,
       businessName: formData.businessName,
+      message: answersMessage(answers),
       answers,
       // No marketing checkbox on this form (removed 2026-10-09).
       consent: { service: smsConsentService, marketing: false, text: consentTextFrom(consentLabelRef.current), version: CONSENT_VERSION },
@@ -106,13 +124,13 @@ export const Qualifier: React.FC = () => {
       <SectionWrapper>
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-sm font-mono text-accent uppercase tracking-widest mb-4">Capacity Audit</h2>
+            <h2 className="text-sm font-mono text-accent uppercase tracking-widest mb-4">Free Call</h2>
             <h3 className="text-3xl md:text-5xl font-sans font-bold text-white mb-6">
               See If We Can Help
             </h3>
 
             <p className="text-text-secondary font-mono max-w-lg mx-auto mt-8">
-              We specialize in Canadian trades businesses. Answer a few quick questions and we'll be in touch.
+              Three quick questions, then your details. We'll call you within one business day.
             </p>
           </div>
 
@@ -189,7 +207,7 @@ export const Qualifier: React.FC = () => {
                       Almost There
                     </h4>
                     <p className="text-sm font-mono text-text-secondary">
-                      Takes 30 seconds. We'll reach out within 24 hours.
+                      Takes 30 seconds. We'll call you within one business day.
                     </p>
                   </div>
                   
@@ -262,7 +280,7 @@ export const Qualifier: React.FC = () => {
                       disabled={isSubmitting}
                       className="w-full bg-accent text-black font-mono font-bold uppercase tracking-wider p-4 hover:bg-white transition-colors flex justify-center items-center gap-2 disabled:opacity-70 neon-button"
                     >
-                      {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Get My Protocol'}
+                      {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Request My Call'}
                     </button>
                     {error && (
                       <p role="alert" className="text-[12px] font-mono text-red-400 leading-relaxed text-center">{error}</p>
@@ -279,9 +297,9 @@ export const Qualifier: React.FC = () => {
                   <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center text-accent mb-6 border border-accent/50">
                     <Check className="w-8 h-8" />
                   </div>
-                  <h4 className="text-3xl font-sans font-bold text-white mb-4">You are eligible for a Growth Protocol.</h4>
+                  <h4 className="text-3xl font-sans font-bold text-white mb-4">Got it, we'll call you.</h4>
                   <p className="text-text-secondary font-mono mb-8 max-w-md">
-                    Based on your answers, your business structure fits our scaling parameters. We have received your information and will be in touch shortly.
+                    We'll call you within one business day to talk through what you need.
                   </p>
                   <button 
                     onClick={() => window.location.reload()}
