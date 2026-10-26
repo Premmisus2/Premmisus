@@ -5,46 +5,11 @@ import { Check, Loader2 } from 'lucide-react';
 import {
   useTurnstile, newRequestId, submitEnquiry, consentTextFrom, enquiryErrorMessage, turnstileWaitMessage, CONSENT_VERSION,
 } from '../lib/enquiry';
+import { QUIZ_QUESTIONS, quizAnswersMessage } from '../lib/quiz';
 
-interface Question {
-  id: number;
-  text: string;
-  /** Label for this answer in the enquiry message the rep reads (Inbox, lead note, Telegram). */
-  short: string;
-  options: string[];
-}
-
-// Q1's wording is read verbatim by the Sales Portal (lib/web-enquiry.ts nicheFrom) to file the
-// lead's trade, and its options are the portal's own niche names (NICHE_LIST). Change neither
-// without changing the portal. Rewritten with Elliott 2026-10-25.
-const questions: Question[] = [
-  {
-    id: 1,
-    text: "Which industry describes you best?",
-    short: "Trade",
-    options: ["Cleaning", "Landscaping", "Plumbing", "Pressure Washing", "Window Washing", "Construction & Handyman", "Other"]
-  },
-  {
-    id: 2,
-    text: "Do you have a website now?",
-    short: "Has a website",
-    options: ["Yes, and it brings in work", "Yes, but it doesn't bring in much", "No"]
-  },
-  {
-    id: 3,
-    text: "Where do jobs slip away?",
-    short: "Jobs slip away",
-    options: ["Calls I miss while I'm on a job", "New requests I'm slow to answer", "Not enough Google reviews", "Past customers who don't come back", "Not sure, I'd like to talk it through"]
-  }
-];
-
-/** The answers as one line for the rep. The portal shows only the message, never raw answers. */
-function answersMessage(answers: Record<string, string>): string {
-  return questions
-    .filter(q => answers[q.text])
-    .map(q => `${q.short}: ${answers[q.text]}`)
-    .join(' | ');
-}
+// The questions live in lib/quiz.ts, shared with the chatbot.
+const questions = QUIZ_QUESTIONS;
+const answersMessage = quizAnswersMessage;
 
 export const Qualifier: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);

@@ -25,7 +25,12 @@ export type TurnstileStatus = 'loading' | 'ready' | 'failed';
  * async, so on a fast page it is often not there yet when the form mounts: the
  * old code checked once and never rendered (P-015). This polls until it is.
  */
-export function useTurnstile(containerRef: RefObject<HTMLDivElement>, active = true) {
+export function useTurnstile(
+  containerRef: RefObject<HTMLDivElement>,
+  active = true,
+  // 'interaction-only' keeps the widget hidden unless Cloudflare needs the visitor to click (the chat).
+  appearance: 'always' | 'interaction-only' = 'always',
+) {
   const [token, setToken] = useState('');
   const [status, setStatus] = useState<TurnstileStatus>('loading');
   const widgetId = useRef<string | null>(null);
@@ -44,6 +49,7 @@ export function useTurnstile(containerRef: RefObject<HTMLDivElement>, active = t
           'error-callback': () => setStatus('failed'),
           theme: 'dark',
           size: 'flexible',
+          appearance,
         });
         window.clearInterval(timer);
       } else if (Date.now() - started > 15_000) {
@@ -57,7 +63,7 @@ export function useTurnstile(containerRef: RefObject<HTMLDivElement>, active = t
       if (widgetId.current && window.turnstile) window.turnstile.remove(widgetId.current);
       widgetId.current = null;
     };
-  }, [active, containerRef]);
+  }, [active, containerRef, appearance]);
 
   const reset = () => {
     setToken('');
@@ -76,7 +82,7 @@ export function newRequestId(): string {
 
 export type EnquiryPayload = {
   requestId: string;
-  form: 'sms-opt-in' | 'contact' | 'qualifier' | 'text';
+  form: 'sms-opt-in' | 'contact' | 'qualifier' | 'text' | 'chatbot';
   name: string;
   email?: string;
   phone?: string;

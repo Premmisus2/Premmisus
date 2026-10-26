@@ -17,7 +17,8 @@ import { createHmac } from 'node:crypto';
 
 const SITE = 'premmisus.ca';
 const MAX_BODY_CHARS = 16_000;
-const FORMS = new Set(['sms-opt-in', 'contact', 'qualifier', 'text']);
+// 'chatbot' (2026-10-25): the chat's confirm card posts here like any other form.
+const FORMS = new Set(['sms-opt-in', 'contact', 'qualifier', 'text', 'chatbot']);
 
 type Json = Record<string, unknown>;
 
