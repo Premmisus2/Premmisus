@@ -138,7 +138,7 @@ export const TermsPage: React.FC = () => {
                 <p>
                   <strong className="text-white">Premmisus Inc.</strong><br />
                   700 Osgoode Dr, London, ON N6E 2H1, Canada<br />
-                  <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">elliott@premmisus.com</a>
+                  <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">contact@premmisus.com</a>
                 </p>
               </Section>
 

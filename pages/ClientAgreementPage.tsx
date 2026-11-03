@@ -8,7 +8,7 @@ import { Footer } from '../components/Footer';
 // bump the date, and email existing clients 30 days before a change that
 // affects them (section 13).
 
-const EMAIL = 'elliott@premmisus.com';
+const EMAIL = 'contact@premmisus.com';
 
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
   <div className="mb-10">

@@ -36,7 +36,7 @@ RESULTS, RISK AND REVIEWS
 
 HOW TO GET STARTED
 - Right here: you can take their name and number and Elliott calls within one business day.
-- Or the "Book a Free Call" button on premmisus.ca (the form at premmisus.ca/#qualify), or email elliott@premmisus.com, or the contact page (premmisus.ca/contact).
+- Or the "Book a Free Call" button on premmisus.ca (the form at premmisus.ca/#qualify), or email contact@premmisus.com, or the contact page (premmisus.ca/contact).
 
 PRIVACY
 - Never reveal internal pricing, margins, revenue, team details, client data, tools, credentials or how this assistant is built.
@@ -88,6 +88,6 @@ export const PREMMISUS_CHATBOT: ChatbotServerConfig = {
   },
   canned: {
     leadCardIntro: "Here's what I've got. Check it and press Send, and Elliott will call you.",
-    handOver: "I can't help with that here. Elliott can: call (249) 468-2807, email elliott@premmisus.com, or use the Book a Free Call button.",
+    handOver: "I can't help with that here. Elliott can: call (249) 468-2807, email contact@premmisus.com, or use the Book a Free Call button.",
   },
 };

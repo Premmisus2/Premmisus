@@ -52,8 +52,8 @@ export const ContactPage: React.FC = () => {
               </h3>
               <p className="text-text-secondary font-mono max-w-md mx-auto">
                 Have a question? Reach us directly at{' '}
-                <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">
-                  elliott@premmisus.com
+                <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">
+                  contact@premmisus.com
                 </a>{' '}
                 or use the form below.
               </p>
@@ -132,8 +132,8 @@ export const ContactPage: React.FC = () => {
                     </p>
                     <p className="text-text-secondary font-mono text-xs mb-8">
                       You can also reach us directly at{' '}
-                      <a href="mailto:elliott@premmisus.com" className="text-accent hover:underline">
-                        elliott@premmisus.com
+                      <a href="mailto:contact@premmisus.com" className="text-accent hover:underline">
+                        contact@premmisus.com
                       </a>
                     </p>
                     <a
